@@ -1,0 +1,24 @@
+class   Solution   { 
+  public : 
+      int   minimumDeviation ( vector < int > &  nums )   { 
+          int  mn = INT_MAX ,  answer = INT_MAX ; 
+         priority_queue < int >  pq ; 
+          for ( int  i : nums ) { 
+              if ( i % 2 == 1 ) { 
+                 pq . push ( i * 2 ) ; 
+                 mn = min ( mn ,  i * 2 ) ; 
+              } 
+              else { 
+                 pq . push ( i ) ; 
+                 mn = min ( mn ,  i ) ; 
+              } 
+          } 
+          while ( pq . top ( ) % 2 == 0 ) { 
+             answer = min ( answer ,  pq . top ( ) - mn ) ; 
+             mn = min ( mn ,  pq . top ( ) / 2 ) ; 
+             pq . push ( pq . top ( ) / 2 ) ; 
+             pq . pop ( ) ; 
+          } 
+          return   min ( answer ,  pq . top ( ) - mn ) ; 
+      } 
+  } ;
