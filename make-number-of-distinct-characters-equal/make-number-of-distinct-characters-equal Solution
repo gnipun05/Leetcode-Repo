@@ -1,0 +1,37 @@
+class   Solution   { 
+  public : 
+      bool   isItPossible ( string word1 ,  string word2 )   { 
+        unordered_map < char , int > mp1 , mp2 ; 
+         
+          for ( auto  it : word1 ) 
+             mp1 [ it ] ++ ; 
+         
+          for ( auto  it : word2 ) 
+             mp2 [ it ] ++ ; 
+         
+          for ( auto  it1 : mp1 ) 
+          { 
+              char  c = it1 . first ; 
+              for ( auto  it : mp2 ) 
+              { 
+                 unordered_map < char , int > d1 = mp1 , d2 = mp2 ; 
+                 d2 [ c ] ++ ;    //adding new char to mp2 
+                 d1 [ it . first ] ++ ;   //adding new char to mp1 
+                 
+                  //swaping two char result 
+                 d2 [ it . first ] -- ;  
+                 d1 [ c ] -- ; 
+                 
+                  if ( d2 [ it . first ] == 0 ) 
+                     d2 . erase ( it . first ) ; 
+                 
+                  if ( d1 [ c ] == 0 ) 
+                     d1 . erase ( c ) ; 
+                 
+                  if ( d1 . size ( ) == d2 . size ( ) ) 
+                      return   true ; 
+              } 
+          } 
+          return   false ; 
+      } 
+  } ;
