@@ -12,19 +12,23 @@
   // Iterative solution 
   class   Solution   { 
   public : 
-     vector < int >   preorderTraversal ( TreeNode *  root )   { 
+     vector < int >   preorderTraversal ( TreeNode *  root ) { 
          vector < int >  answer ; 
           if ( root == NULL ) 
               return  answer ; 
          stack < TreeNode * >  st ; 
          st . push ( root ) ; 
+         TreeNode  * curr = root ; 
           while ( st . size ( ) ) { 
-             TreeNode *  curr = st . top ( ) ;  st . pop ( ) ; 
-             answer . push_back ( curr -> val ) ; 
-              if ( curr -> right ) 
+              if ( curr ) { 
+                 answer . push_back ( curr -> val ) ; 
                  st . push ( curr -> right ) ; 
-              if ( curr -> left ) 
-                 st . push ( curr -> left ) ; 
+                 curr = curr -> left ; 
+              } 
+              else { 
+                 curr = st . top ( ) ; 
+                 st . pop ( ) ; 
+              } 
           } 
           return  answer ; 
       } 
