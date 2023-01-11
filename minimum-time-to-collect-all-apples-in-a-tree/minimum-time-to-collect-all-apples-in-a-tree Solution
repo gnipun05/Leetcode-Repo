@@ -1,0 +1,23 @@
+class   Solution   { 
+  public : 
+      int   dfs ( vector < int >  adj [ ] ,   int  i ,  vector < bool > &  has ,   int  parent ) { 
+          int  answer = 0 ; 
+          for ( int  j : adj [ i ] ) { 
+              if ( j != parent ) 
+                 answer += dfs ( adj ,  j ,  has ,  i ) ; 
+          } 
+          if ( parent  ==   - 1 ) 
+              return  answer ; 
+          if ( answer > 0   ||  has [ i ]   ||   ( answer == 0   &&  has [ i ] ) ) 
+             answer += 2 ; 
+          return  answer ; 
+      } 
+      int   minTime ( int  n ,  vector < vector < int >> &  edges ,  vector < bool > &  has )   { 
+         vector < int >  adj [ n ] ; 
+          for ( vector < int >  v : edges ) { 
+             adj [ v [ 0 ] ] . push_back ( v [ 1 ] ) ; 
+             adj [ v [ 1 ] ] . push_back ( v [ 0 ] ) ; 
+          } 
+          return   dfs ( adj ,   0 ,  has ,   - 1 ) ; 
+      } 
+  } ;
