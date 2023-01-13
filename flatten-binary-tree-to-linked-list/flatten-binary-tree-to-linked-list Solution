@@ -12,20 +12,19 @@
   class   Solution   { 
   public : 
       void   flatten ( TreeNode *  root )   { 
-          if ( ! root )      return ; 
-         queue < TreeNode * >  q ; 
-          preorder ( root ,  q ) ; 
-         TreeNode *  curr = q . front ( ) ;  q . pop ( ) ; 
-          while ( q . empty ( ) == false ) { 
-             curr -> left = NULL ; 
-             curr -> right = q . front ( ) ; q . pop ( ) ; 
-             curr = curr -> right ; 
-          } 
+          helper ( root ) ; 
+          return ; 
       } 
-      void   preorder ( TreeNode *  root ,  queue < TreeNode * >   & q ) { 
-          if ( ! root )      return ; 
-         q . push ( root ) ; 
-          preorder ( root -> left ,  q ) ; 
-          preorder ( root -> right ,  q ) ; 
+     TreeNode *   helper ( TreeNode *  root ) { 
+          if ( root == NULL ) 
+              return   NULL ; 
+         TreeNode *  curr = root ; 
+         TreeNode *  temp = root -> right ; 
+         root -> right = helper ( root -> left ) ; 
+         root -> left = NULL ; 
+          while ( root  &&  root -> right ) 
+             root = root -> right ; 
+         root -> right = helper ( temp ) ; 
+          return  curr ; 
       } 
   } ;
