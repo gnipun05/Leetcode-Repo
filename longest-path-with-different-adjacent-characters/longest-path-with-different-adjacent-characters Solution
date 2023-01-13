@@ -1,0 +1,33 @@
+class   Solution   { 
+  public : 
+      int  answer = INT_MIN ; 
+      int   solve ( vector < int >  adj [ ] ,  string  & s ,   int  n ,   int  node ,   int  parent ) { 
+          int  mx = 0 ; 
+          int  smx = 0 ; 
+          for ( int  i : adj [ node ] ) { 
+              if ( i == parent ) 
+                  continue ; 
+              int  temp = solve ( adj ,  s ,  n ,  i ,  node ) ; 
+              if ( s [ i ] == s [ node ] ) 
+                  continue ; 
+              if ( mx < temp ) { 
+                 smx = mx ; 
+                 mx = temp ; 
+              } 
+              else   if   ( temp > smx ) 
+                 smx = temp ; 
+          } 
+         answer = max ( answer ,  mx + smx + 1 ) ; 
+          return  mx + 1 ; 
+      } 
+      int   longestPath ( vector < int > &  parent ,  string s )   { 
+          int  n = parent . size ( ) ; 
+         vector < int >  adj [ n ] ; 
+          for ( int  i = 1 ;  i < n ;  i ++ ) { 
+             adj [ parent [ i ] ] . push_back ( i ) ; 
+             adj [ i ] . push_back ( parent [ i ] ) ; 
+          } 
+          solve ( adj ,  s ,  n ,   0 ,   - 1 ) ; 
+          return  answer ; 
+      } 
+  } ;
