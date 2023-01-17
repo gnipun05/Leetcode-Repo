@@ -1,6 +1,8 @@
 // Explaination: https://leetcode.com/problems/flip-string-to-monotone-increasing/solutions/1396974/c-bruteforce-o-n2-optimal-prefix-suffix-easy-to-understand/?orderBy=most_votes&page=2  
   // Time Complexity: O(n)    	Space complexity: O(n) 
   // Do visit the previous Accepted Solution for optimised solution 
+ 
+  // Resubmitting coz of it being the DCC 
   class   Solution   { 
   public : 
       int   minFlipsMonoIncr ( string s ) 
