@@ -1,0 +1,25 @@
+class   Solution   { 
+  public : 
+      int   maxSubarraySumCircular ( vector < int > &  nums )   { 
+          int  n = nums . size ( ) ; 
+          int  linear = kedane ( nums , n ) ; 
+          if ( linear < 0 )      return  linear ; 
+         
+          int  sum = 0 ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+             sum += nums [ i ] ; 
+             nums [ i ] = - nums [ i ] ; 
+          } 
+          int  circular = sum + kedane ( nums , n ) ; 
+          return   max ( linear ,  circular ) ; 
+      } 
+      int   kedane ( vector < int > &  nums ,   int  n ) { 
+          int  currSum = 0 ,  answer = INT_MIN ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+             currSum += nums [ i ] ; 
+             answer = max ( answer ,  currSum ) ; 
+              if ( currSum < 0 )    currSum = 0 ; 
+          } 
+          return  answer ; 
+      } 
+  } ;
