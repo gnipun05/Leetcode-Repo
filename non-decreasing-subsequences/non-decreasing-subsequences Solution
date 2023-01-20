@@ -1,0 +1,26 @@
+class   Solution   { 
+  public : 
+     set < vector < int >>  answer ; 
+      void   solve ( int  n ,  vector < int >   & nums ,  vector < int >   & temp ,   int  curr ) { 
+          if ( temp . size ( ) >= 2 ) 
+             answer . insert ( temp ) ; 
+          for ( int  i = curr ;  i < n ;  i ++ ) { 
+              if ( temp . size ( ) == 0   ||  temp . back ( ) <= nums [ curr ] ) { 
+                 temp . push_back ( nums [ curr ] ) ; 
+                  solve ( n ,  nums ,  temp ,  i + 1 ) ; 
+                 temp . pop_back ( ) ; 
+              } 
+          } 
+      } 
+     vector < vector < int >>   findSubsequences ( vector < int > &  nums )   { 
+          int  n = nums . size ( ) ; 
+         vector < int >  temp ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              solve ( n ,  nums ,  temp ,  i ) ; 
+          } 
+         vector < vector < int >>  res ; 
+          for ( vector < int >  i : answer ) 
+             res . push_back ( i ) ; 
+          return  res ; 
+      } 
+  } ;
