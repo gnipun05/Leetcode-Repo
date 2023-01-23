@@ -1,0 +1,18 @@
+// resubmitting coz of it being the daily leetcode challenge 
+  class   Solution   { 
+  public : 
+      int   findJudge ( int  n ,  vector < vector < int >> &  trust )   { 
+          if ( n == 1   &&  trust . size ( ) == 0 )   return   1 ;   // as 1 is in the town and doesn't trust anyone 
+         vector < int >   in ( n + 1 , 0 ) ; 
+         vector < int >   out ( n + 1 , 0 ) ; 
+          for ( auto  i : trust ) { 
+             in [ i [ 1 ] ] ++ ; 
+             out [ i [ 0 ] ] ++ ; 
+          } 
+          for ( int  i = 1 ;  i <= n ;  i ++ ) { 
+              if ( in [ i ] == n - 1   &&  out [ i ] == 0 ) 
+                  return  i ; 
+          } 
+          return   - 1 ; 
+      } 
+  } ;
