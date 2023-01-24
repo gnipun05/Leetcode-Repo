@@ -1,0 +1,44 @@
+class   Solution   { 
+  public : 
+      void   transform ( vector < vector < int >>   &  board ) { 
+          reverse ( board . begin ( ) ,  board . end ( ) ) ; 
+          for ( int  i = 1 ;  i < board . size ( ) ;  i += 2 ) { 
+              reverse ( board [ i ] . begin ( ) ,  board [ i ] . end ( ) ) ; 
+          } 
+      } 
+      int   snakesAndLadders ( vector < vector < int >> &  board )   { 
+          int  n = board . size ( ) ; 
+          if ( n == 1 ) 
+              return   0 ; 
+         
+          transform ( board ) ; 
+ 
+          int  answer = 0 ; 
+         vector < bool >   visited ( n * n ,   false ) ; 
+         queue < int >  q ; 
+         q . push ( 0 ) ; 
+          while ( q . size ( ) ) { 
+              int  size = q . size ( ) ; 
+             answer ++ ; 
+              while ( size -- ) { 
+                  int  u = q . front ( ) ; 
+                 q . pop ( ) ; 
+                  for ( int  i = 1 ;  i <= 6 ;  i ++ ) { 
+                      int  nx = ( u + i ) / n ; 
+                      int  ny = ( u + i ) % n ; 
+                      if ( nx < 0   ||  ny < 0   ||  nx >= n  ||  ny >= n  ||  visited [ nx * n + ny ] ) 
+                          continue ; 
+                      if ( nx == n - 1   &&  ny == n - 1   ||  board [ nx ] [ ny ] == n * n ) 
+                          return  answer ; 
+                     visited [ nx * n + ny ] = true ; 
+                      if ( board [ nx ] [ ny ] == - 1 ) 
+                         q . push ( nx * n + ny ) ; 
+                      else { 
+                         q . push ( board [ nx ] [ ny ] - 1 ) ; 
+                      } 
+                  } 
+              } 
+          } 
+          return   - 1 ; 
+      } 
+  } ;
