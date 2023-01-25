@@ -1,45 +1,21 @@
 class   Solution   { 
   public : 
-      int   closestMeetingNode ( vector < int > &  edges ,   int  node1 ,   int  node2 )   { 
-         unordered_map < int ,   int >  m1 ; 
-         unordered_map < int ,   int >  m2 ; 
-          int  n = edges . size ( ) ; 
-         vector < bool >   vis ( n , false ) ; 
-          int  n1 = node1 ,  n2 = node2 ; 
-          int  dist = 1 ; 
-         m1 [ n1 ] = 0 ; 
-         m2 [ n2 ] = 0 ; 
-         vis [ n1 ] = true ; 
-          while ( edges [ n1 ] != - 1   &&  vis [ edges [ n1 ] ] == false ) { 
-             vis [ edges [ n1 ] ] = true ; 
-             m1 [ edges [ n1 ] ] = dist ; 
-             n1 = edges [ n1 ] ; 
-             dist ++ ; 
+      void   dfs ( int  i ,   int  dist ,  vector < int > &  e ,  vector < int > &  memo )   { 
+          while   ( i  !=   - 1   &&  memo [ i ]   ==   - 1 )   { 
+             memo [ i ]   =  dist ++ ; 
+             i  =  e [ i ] ; 
           } 
-         dist = 1 ; 
-         vector < bool >   vis2 ( n ,   false ) ; 
-         vis2 [ n2 ] = true ; 
-          while ( edges [ n2 ] != - 1    &&   vis2 [ edges [ n2 ] ] == false ) { 
-             vis2 [ edges [ n2 ] ] = true ; 
-             m2 [ edges [ n2 ] ] = dist ; 
-             n2 = edges [ n2 ] ; 
-             dist ++ ; 
-          } 
-          int  answer = INT_MAX ; 
-          int  mn = INT_MAX ; 
-          for ( auto   & x : m1 ) { 
-              int  node = x . first ; 
-              if ( m2 . find ( node ) != m2 . end ( ) ) { 
-                  if ( mn  ==   max ( x . second , m2 [ node ] ) ) 
-                     answer = min ( answer ,  node ) ; 
-                  else   if ( mn  >   max ( x . second , m2 [ node ] ) ) { 
-                     answer = node ; 
-                     mn = max ( x . second , m2 [ node ] ) ; 
-                  } 
+      } 
+      int   closestMeetingNode ( vector < int > &  e ,   int  node1 ,   int  node2 )   { 
+          int  res  =   - 1 ,  min_dist  =  INT_MAX ; 
+         vector < int >   m1 ( e . size ( ) ,   - 1 ) ,   m2 ( e . size ( ) ,   - 1 ) ; 
+          dfs ( node1 ,   0 ,  e ,  m1 ) ; 
+          dfs ( node2 ,   0 ,  e ,  m2 ) ; 
+          for   ( int  i  =   0 ;  i  <  e . size ( ) ;   ++ i ) 
+              if   ( min ( m1 [ i ] ,  m2 [ i ] )   >=   0   &&   max ( m1 [ i ] ,  m2 [ i ] )   <  min_dist )   { 
+                 min_dist  =   max ( m1 [ i ] ,  m2 [ i ] ) ; 
+                 res  =  i ; 
               } 
-          } 
-          if ( answer == INT_MAX ) 
-              return   - 1 ; 
-          return  answer ; 
+          return  res ; 
       } 
   } ;
