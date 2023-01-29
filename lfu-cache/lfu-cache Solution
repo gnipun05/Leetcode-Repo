@@ -1,0 +1,73 @@
+class   LFUCache   { 
+  private : 
+      // Create a 2D linked list, while the outer list represent the frequency, 
+      // the inner list stores the data that have this frequency. 
+     list < list < pair < int ,   int >> >  l ; 
+     unordered_map < int ,  list < list < pair < int ,   int >> > :: iterator >  mp1 ; 
+     unordered_map < int ,  list < pair < int ,   int >> :: iterator >  mp2 ; 
+      int  cap  =   0 ; 
+      int  current  =   0 ; 
+  public : 
+      LFUCache ( int  capacity )   { 
+         cap  =  capacity ; 
+         l . push_back ( list < pair < int ,   int >> ( ) ) ; 
+      } 
+     
+      int   get ( int  key )   { 
+          if   ( cap  ==   0 )   return   - 1 ; 
+          if   ( mp1 . find ( key )   ==  mp1 . end ( ) )   return   - 1 ; 
+          auto  it_1  =  mp1 [ key ] ; 
+          auto  it_2  =  mp2 [ key ] ; 
+          int  val  =  it_2 -> second ; 
+          auto  it_1_new  =  it_1 ; 
+          ++ it_1_new ; 
+          if   ( it_1_new  ==  l . end ( ) )  l . push_back ( list < pair < int ,   int >> ( ) ) ; 
+         it_1_new  =  it_1 ; 
+          ++ it_1_new ; 
+         it_1_new -> push_front ( * it_2 ) ; 
+         it_1 -> erase ( it_2 ) ; 
+         mp1 [ key ]   =  it_1_new ; 
+         mp2 [ key ]   =  it_1_new -> begin ( ) ; 
+          return  val ; 
+      } 
+     
+      void   put ( int  key ,   int  value )   { 
+          if   ( cap  ==   0 )   return ; 
+          if   ( mp1 . find ( key )   ==  mp1 . end ( ) )   { 
+              ++ current ; 
+              if   ( current  >  cap )   { 
+                  auto  it  =  l . begin ( ) ; 
+                  for   ( it ;  it  !=  l . end ( ) ;   ++ it ) { 
+                      if   ( it -> size ( )   !=   0 )   break ; 
+                  }   // for 
+                 mp1 . erase ( it -> back ( ) . first ) ; 
+                 mp2 . erase ( it -> back ( ) . first ) ; 
+                 it -> pop_back ( ) ; 
+                  -- current ; 
+              } 
+             l . begin ( ) -> push_front ( make_pair ( key ,  value ) ) ; 
+             mp1 [ key ]   =  l . begin ( ) ; 
+             mp2 [ key ]   =  l . begin ( ) -> begin ( ) ; 
+          } 
+          else   { 
+              auto  it1  =  mp1 [ key ] ; 
+              auto  it2  =  mp2 [ key ] ; 
+              auto  it1_new  =  it1 ; 
+              ++ it1_new ; 
+              if   ( it1_new  ==  l . end ( ) )  l . push_back ( list < pair < int ,   int >> ( ) ) ; 
+             it1_new  =  it1 ; 
+              ++ it1_new ; 
+             it1_new -> push_front ( make_pair ( key ,  value ) ) ; 
+             it1 -> erase ( it2 ) ; 
+             mp1 [ key ]   =  it1_new ; 
+             mp2 [ key ]   =  it1_new -> begin ( ) ; 
+          } 
+      } 
+  } ; 
+ 
+  /**
+  * Your LFUCache object will be instantiated and called as such:
+  * LFUCache* obj = new LFUCache(capacity);
+  * int param_1 = obj->get(key);
+  * obj->put(key,value);
+  */
