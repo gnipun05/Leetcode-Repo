@@ -1,0 +1,28 @@
+class   Solution   { 
+  public : 
+      int   bestTeamScore ( vector < int > &  scores ,  vector < int > &  ages )   { 
+          int  n = scores . size ( ) ; 
+         vector < pair < int ,   int >>  temp ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) 
+             temp . push_back ( { ages [ i ] ,  scores [ i ] } ) ; 
+          sort ( temp . begin ( ) ,  temp . end ( ) ) ; 
+         vector < int >  arr ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) 
+             arr . push_back ( temp [ i ] . second ) ; 
+         
+          // now we need to find the maximum sum of the increasing subsequence 
+          int  answer = arr [ 0 ] ; 
+         vector < int >  dp ; 
+          for ( int  i : arr ) 
+             dp . push_back ( i ) ; 
+          for ( int  i = 1 ;  i < n ;  i ++ ) { 
+              for ( int  j = 0 ;  j < i ;  j ++ ) { 
+                  if ( arr [ j ] <= arr [ i ] ) { 
+                     dp [ i ] = max ( dp [ i ] ,  dp [ j ] + arr [ i ] ) ; 
+                     answer = max ( answer ,  dp [ i ] ) ; 
+                  } 
+              } 
+          } 
+          return  answer ; 
+      } 
+  } ;
