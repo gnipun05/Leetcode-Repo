@@ -1,0 +1,28 @@
+class   Solution   { 
+  public : 
+      bool   isAlienSorted ( vector < string > &  words ,  string order )   { 
+         unordered_map < char ,   int >  m ; 
+          for ( int  i = 0 ;  i < 26 ;  i ++ ) { 
+             m [ order [ i ] ] = i + 1 ; 
+          } 
+          int  n = words . size ( ) ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              for ( int  j = i + 1 ;  j < n ;  j ++ ) { 
+                  if ( words [ i ] == words [ j ] ) 
+                      continue ; 
+                  int  x = 0 ; 
+                  while ( x < words [ i ] . size ( )   &&  x < words [ j ] . size ( ) ) { 
+                      char  a = words [ i ] [ x ] ,  b = words [ j ] [ x ] ; 
+                      if ( m [ a ] - m [ b ] > 0 ) 
+                          return   false ; 
+                      else   if ( m [ a ] - m [ b ] < 0 ) 
+                          break ; 
+                     x ++ ; 
+                  } 
+                  if ( x == words [ j ] . size ( ) ) 
+                      return   false ; 
+              } 
+          } 
+          return   true ; 
+      } 
+  } ;
