@@ -1,0 +1,32 @@
+class   Solution   { 
+  public : 
+     string  convert ( string s ,   int  n )   { 
+          int  m = ceil ( s . size ( ) / n ) ; 
+          if ( n == 1 ) 
+              return  s ; 
+         vector < vector < char >>   arr ( 1001 ,   vector < char >   ( 1001 ,   '#' ) ) ; 
+          int  i = 0 ,  j = 0 ; 
+          bool  flag = false ; 
+          for ( char  c : s ) { 
+              if ( i == 0 ) 
+                 flag = false ; 
+              if ( i == n - 1 ) { 
+                 flag = true ; 
+              } 
+             arr [ i ] [ j ] = c ; 
+              if ( flag ) { 
+                 j ++ ; 
+                 i -- ; 
+              } 
+              else 
+                 i ++ ; 
+          } 
+         string answer = "" ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              for ( int  j = 0 ;  j < 1001 ;  j ++ ) 
+                  if ( arr [ i ] [ j ] != '#' ) 
+                     answer += arr [ i ] [ j ] ; 
+          } 
+          return  answer ; 
+      } 
+  } ;
