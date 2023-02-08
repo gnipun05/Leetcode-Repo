@@ -1,0 +1,19 @@
+// resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+      int   jump ( vector < int > &  nums )   { 
+          int  n = nums . size ( ) ,  stairs = nums [ 0 ] ,  ladder = 1 ,  curr = nums [ 0 ] ; 
+          if ( n == 1 ) 
+              return   0 ; 
+          for ( int  i = 1 ;  i < n ;  i ++ ) { 
+             curr -- ; 
+             stairs -- ; 
+             stairs = max ( stairs ,  nums [ i ] ) ; 
+              if ( i != n - 1   &&  curr == 0 ) { 
+                 curr = stairs ; 
+                 ladder ++ ; 
+              } 
+          } 
+          return  ladder ; 
+      } 
+ } ;
