@@ -1,0 +1,41 @@
+class   Solution   { 
+ public : 
+     string  convert ( long   long  n ) { 
+         string ans = "" ; 
+          if ( n == 0 ) 
+              return   "0" ; 
+          while ( n ) { 
+             ans += to_string ( n % 2 ) ; 
+             n /= 2 ; 
+          } 
+          reverse ( ans . begin ( ) ,  ans . end ( ) ) ; 
+          return  ans ; 
+      } 
+     vector < vector < int >>   substringXorQueries ( string s ,  vector < vector < int >> &  q )   { 
+          int  n = s . size ( ) ; 
+         vector < string >  arr ; 
+          for ( auto  v :  q ) { 
+              int  f = v [ 0 ] ,  sec = v [ 1 ] ; 
+              long   long  val = f ^ sec ; 
+             arr . push_back ( convert ( val ) ) ; 
+          } 
+         unordered_map < string ,  pair < int , int >> m ; 
+          for ( int  i = 0 ;  i < s . size ( ) ;  i ++ ) { 
+              for ( int  j = 1 ;  j <= min ( 32 ,  n - i ) ;  j ++ ) { 
+                 string temp = s . substr ( i ,  j ) ; 
+                  if ( m . find ( temp ) == m . end ( ) ) 
+                     m [ temp ] = { i , i + j - 1 } ; 
+              } 
+          } 
+         vector < vector < int >>  answer ; 
+          for ( string str : arr ) { 
+              if ( m . find ( str ) != m . end ( ) ) { 
+                 answer . push_back ( { m [ str ] . first ,  m [ str ] . second } ) ; 
+              } 
+              else { 
+                 answer . push_back ( { - 1 , - 1 } ) ; 
+              } 
+          } 
+          return  answer ; 
+      } 
+ } ;
