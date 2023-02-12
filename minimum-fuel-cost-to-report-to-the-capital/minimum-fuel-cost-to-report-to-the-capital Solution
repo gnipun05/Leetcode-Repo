@@ -1,0 +1,30 @@
+class   Solution   { 
+ public : 
+      typedef   long   long  ll ; 
+     ll ans = 0 , sts ; 
+      int   dfs ( int  i , vector < int > & vis , vector < vector < int >> & adj ) { 
+         ll cnt = 1 ; 
+         vis [ i ] ++ ; 
+          for ( auto  it : adj [ i ] ) { 
+              if ( ! vis [ it ] ) { 
+                 cnt += ( dfs ( it , vis , adj ) ) ; 
+              } 
+          } 
+          if ( i != 0 ) { 
+             ans += ( ( ( cnt / sts )   *  sts  == cnt ) ? cnt / sts : cnt / sts + 1 ) ; 
+          } 
+          return  cnt ; 
+      } 
+     ll  minimumFuelCost ( vector < vector < int >> &  roads ,   int  seats )   { 
+         vector < vector < int >>   adj ( roads . size ( ) + 1 ) ; 
+         sts = seats ; 
+          if ( roads . size ( ) == 0 ) { return   0 ; } 
+          for ( auto  it : roads ) { 
+             adj [ it [ 1 ] ] . push_back ( it [ 0 ] ) ; 
+             adj [ it [ 0 ] ] . push_back ( it [ 1 ] ) ; 
+          } 
+         vector < int >   vis ( roads . size ( ) + 1 , 0 ) ; 
+          dfs ( 0 , vis , adj ) ; 
+          return  ans ; 
+      } 
+ } ;
