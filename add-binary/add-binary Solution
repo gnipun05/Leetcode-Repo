@@ -1,0 +1,20 @@
+// resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+     string  addBinary ( string a ,  string b )   { 
+          int  l1 = a . size ( ) - 1 ,  l2 = b . size ( ) - 1 ; 
+          int  carry = 0 ; 
+         string answer = "" ; 
+          while ( l1 >= 0   ||  l2 >= 0 ) { 
+              int  sum = carry ; 
+              if ( l1 >= 0 )     sum += a [ l1 -- ] - '0' ; 
+              if ( l2 >= 0 )     sum += b [ l2 -- ] - '0' ; 
+              int  bit = sum % 2 ; 
+             carry = sum / 2 ; 
+             answer += to_string ( bit ) ; 
+          } 
+          if ( carry )    answer += "1" ; 
+          reverse ( answer . begin ( ) ,  answer . end ( ) ) ; 
+          return  answer ; 
+      } 
+ } ;
