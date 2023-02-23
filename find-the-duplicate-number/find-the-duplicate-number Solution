@@ -1,0 +1,19 @@
+// Resubmitting coz of it being the Daily Leetcode Challenge Problem 
+ class   Solution   { 
+ public : 
+      int   findDuplicate ( vector < int > &  nums )   { 
+          if ( nums . size ( ) <= 1 )    return   - 1 ; 
+          int  fast = nums [ nums [ 0 ] ] ; 
+          int  slow = nums [ 0 ] ; 
+          while ( fast != slow ) {    // this loop detects position where fast meets slow 
+             slow = nums [ slow ] ; 
+             fast = nums [ nums [ fast ] ] ; 
+          } 
+          int  find = 0 ; 
+          while ( find != slow ) {   // this loop will give us the final repeating number 
+             slow = nums [ slow ] ; 
+             find = nums [ find ] ; 
+          } 
+          return  find ; 
+      } 
+ } ;
