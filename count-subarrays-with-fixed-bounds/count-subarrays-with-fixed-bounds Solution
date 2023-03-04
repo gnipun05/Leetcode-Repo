@@ -1,0 +1,21 @@
+// Resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+      long   long   countSubarrays ( vector < int > &  nums ,   int  minK ,   int  maxK )   { 
+          int  n = nums . size ( ) ; 
+          int  j = 0 ,  mx = - 1 ,  mn = - 1 ; 
+          long   long  answer = 0 ; 
+          for ( int  i = 0 ;  i < nums . size ( ) ;  i ++ ) { 
+              if ( nums [ i ] < minK  or  nums [ i ] > maxK ) { 
+                 mx = - 1 ,  mn = - 1 ; 
+                 j = i + 1 ; 
+              } 
+              if ( nums [ i ] == minK ) 
+                 mn = i ; 
+              if ( nums [ i ] == maxK ) 
+                 mx = i ; 
+             answer += max ( 0 ,   min ( mn ,  mx ) - j + 1 ) ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
