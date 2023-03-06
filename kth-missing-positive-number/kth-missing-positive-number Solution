@@ -1,0 +1,16 @@
+class   Solution   { 
+ public : 
+      int   findKthPositive ( vector < int > &  arr ,   int  k )   { 
+          int  prev = 0 ; 
+          for ( int  i : arr ) { 
+              while ( prev + 1 != i ) { 
+                 k -- ; 
+                 prev ++ ; 
+                  if ( k == 0 ) 
+                      return  prev ; 
+              } 
+             prev = i ; 
+          } 
+          return  arr [ arr . size ( ) - 1 ] + k ; 
+      } 
+ } ;
