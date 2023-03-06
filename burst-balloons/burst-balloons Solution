@@ -1,0 +1,26 @@
+typedef  std :: vector < int >  vi ; 
+ typedef  std :: vector < vector < int >>  vvi ; 
+ 
+ class   Solution   { 
+ public : 
+      int   maxCoins ( vector < int > &  dims )   { 
+         dims . insert ( dims . begin ( ) ,   1 ) ; 
+         dims . push_back ( 1 ) ; 
+          int  n  =  dims . size ( ) ; 
+         vvi  dp ( n ,   vi ( n ,   - 1 ) ) ; 
+         
+          return   solve ( dp ,  dims ,   1 ,  n - 1 ) ; 
+         
+      } 
+      int   solve ( vvi  & dp ,  vi  & dims ,   int  i ,   int  j ) { 
+          if ( i >= j )      return   0 ; 
+          if ( dp [ i ] [ j ] != - 1 )      return  dp [ i ] [ j ] ; 
+          int  mx = INT_MIN ; 
+          for ( int  k = i ;  k < j ;  k ++ ) { 
+              int  temp = solve ( dp ,  dims ,  i ,  k ) + solve ( dp ,  dims ,  k + 1 ,  j ) + dims [ i - 1 ] * dims [ k ] * dims [ j ] ; 
+             mx = max ( mx ,  temp ) ; 
+          } 
+         dp [ i ] [ j ] = mx ; 
+          return  mx ; 
+      } 
+ } ;
