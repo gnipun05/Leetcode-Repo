@@ -1,0 +1,29 @@
+class   Solution   { 
+ public : 
+     vector < vector < int >>  dp ; 
+      int  mod = 1e9 + 7 ; 
+      long   long   solve ( int  n ,   int  target ,  vector < vector < int >> &  types ) { 
+          if ( target == 0 ) 
+              return   1 ; 
+          if ( target < 0   ||  n < 0 ) 
+              return   0 ; 
+          if ( dp [ n ] [ target ] != - 1 ) 
+              return  dp [ n ] [ target ] ; 
+          int  c = types [ n ] [ 0 ] ; 
+          int  m = types [ n ] [ 1 ] ; 
+          int  temp = 0 ; 
+          for ( int  i = 0 ;  i <= c ;  i ++ ) { 
+              if ( m * i <= target ) { 
+                 temp = ( temp + solve ( n - 1 ,  target - m * i ,  types ) ) % mod ; 
+              } 
+              else 
+                  break ; 
+          } 
+          return  dp [ n ] [ target ] = temp ; 
+      } 
+      int   waysToReachTarget ( int  target ,  vector < vector < int >> &  types )   { 
+          int  n = types . size ( ) ; 
+         dp . resize ( n + 1 ,   vector < int >   ( target + 1 ,   - 1 ) ) ; 
+          return   ( int ) solve ( n - 1 ,  target ,  types ) ; 
+      } 
+ } ;
