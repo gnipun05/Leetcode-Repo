@@ -1,0 +1,19 @@
+class   Solution   { 
+ public : 
+      int   numSubseq ( vector < int > &  nums ,   int  target )   { 
+          sort ( nums . begin ( ) ,  nums . end ( ) ) ; 
+          int  n = nums . size ( ) ,  i = 0 ,  j = n - 1 ,  sum = 0 ,  mod = 1e9   +   7 ,  answer = 0 ; 
+         vector < int >   subs ( n , 1 ) ;   // subs[i] stores the total non-empty subsequences possible of max size i+1 
+          for ( int  i = 1 ;  i < n ;  i ++ ) 
+             subs [ i ] = ( subs [ i - 1 ] * 2 ) % mod ; 
+          while ( i <= j ) { 
+              if ( nums [ i ] + nums [ j ] > target ) 
+                 j -- ; 
+              else { 
+                 answer = ( answer + subs [ j - i ] ) % mod ; 
+                 i ++ ; 
+              } 
+          } 
+          return  answer ; 
+      } 
+ } ;
