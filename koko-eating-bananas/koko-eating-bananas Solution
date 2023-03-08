@@ -1,0 +1,28 @@
+// (Binary Search)*(Linear Traversal) --> NlogM {N=size of piles, M=Largest number in piles} 
+ class   Solution   { 
+ public : 
+      int   minEatingSpeed ( vector < int > &  piles ,   int  h )   { 
+          int  mx = 0 ; 
+          for ( int  i : piles ) 
+             mx = max ( mx , i ) ;   // finding maximum value in piles 
+          int  lo = 1 ,  hi = mx ; 
+          while ( lo < hi ) { 
+              int  mid = lo + ( hi - lo ) / 2 ;   // mid=(lo+hi)/2; {this might cause integer overflow} 
+              if ( possible ( piles ,  mid ,  h ) )   // if k=mid is possible, we check further for smaller value of k; so we decrease the value of hi to get a small mid [typical binary search] 
+                 hi = mid ; 
+              else 
+                 lo = mid + 1 ; 
+          } 
+          return  lo ;   // hi will always shift to value just less than the previous smallest value of k; so when lo>hi {when loop breaks [lo-1==hi]} lo will be equal to the smallest value of k {instead we can also return hi+1} 
+      } 
+      bool   possible ( vector < int >   & piles ,   int  k ,   int  h ) { 
+          int  totalHrs = 0 ; 
+          for ( int  i : piles ) { 
+              int  div = i / k ; 
+             totalHrs += div ; 
+              if ( i % k ) 
+                 totalHrs ++ ; 
+          } 
+          return  totalHrs <= h ; 
+      } 
+ } ;
