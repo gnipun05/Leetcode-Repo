@@ -1,0 +1,38 @@
+/**
+  * Definition for singly-linked list.
+  * struct ListNode {
+  *     int val;
+  *     ListNode *next;
+  *     ListNode() : val(0), next(nullptr) {}
+  *     ListNode(int x) : val(x), next(nullptr) {}
+  *     ListNode(int x, ListNode *next) : val(x), next(next) {}
+  * };
+  */ 
+ 
+ /* This solution is done using Reservoir Sampling, where k=1. Each element has a probability of 1/n of getting selected. */ 
+ class   Solution   { 
+ public : 
+     ListNode *  head ; 
+      Solution ( ListNode *  head )   { 
+          this -> head = head ; 
+      } 
+     
+      int   getRandom ( )   { 
+          int  res = - 1 ; 
+          int  i = 1 ; 
+         ListNode *  curr = head ; 
+          while ( curr != NULL ) { 
+              if ( rand ( ) % i == 0 )   // if(rand()%i==k-1) where we select k elements in reservoir out of n elements in stream 
+                 res = curr -> val ; 
+             i ++ ; 
+             curr = curr -> next ; 
+          } 
+          return  res ; 
+      } 
+ } ; 
+ 
+ /**
+  * Your Solution object will be instantiated and called as such:
+  * Solution* obj = new Solution(head);
+  * int param_1 = obj->getRandom();
+  */
