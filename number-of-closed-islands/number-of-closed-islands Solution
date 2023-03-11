@@ -1,0 +1,27 @@
+class   Solution   { 
+ public : 
+      int   closedIsland ( vector < vector < int >> &  grid )   { 
+          int  m = grid . size ( ) ,  n = grid [ 0 ] . size ( ) ,  answer = 0 ; 
+          for ( int  i = 1 ;  i < m - 1 ;  i ++ ) { 
+              for ( int  j = 1 ;  j < n - 1 ;  j ++ ) { 
+                  if ( grid [ i ] [ j ] == 0 ) { 
+                      if ( countIslands ( grid ,  m ,  n ,  i ,  j ) ) 
+                         answer ++ ; 
+                  } 
+              } 
+          } 
+          return  answer ; 
+      } 
+      bool   countIslands ( vector < vector < int >>   & grid ,   int  m ,   int  n ,   int  i ,   int  j ) { 
+          // 1 = water 
+          // 0 = land 
+          if ( grid [ i ] [ j ] == 1 )     return   true ; 
+          if ( ( i == 0   ||  i == m - 1   ||  j == 0   ||  j == n - 1 ) && grid [ i ] [ j ] == 0 )     return   false ; 
+         grid [ i ] [ j ] = 1 ; 
+          bool  up = countIslands ( grid ,  m ,  n ,  i ,  j - 1 ) ; 
+          bool  down = countIslands ( grid ,  m ,  n ,  i ,  j + 1 ) ; 
+          bool  left = countIslands ( grid ,  m ,  n ,  i - 1 ,  j ) ; 
+          bool  right = countIslands ( grid ,  m ,  n ,  i + 1 ,  j ) ; 
+          return  up && down && left && right ; 
+      } 
+ } ;
