@@ -1,0 +1,22 @@
+class   Solution   { 
+ public : 
+      int   deleteAndEarn ( vector < int > &  nums )   { 
+         map < int ,   int >  m ; 
+          for ( int  num : nums ) 
+             m [ num ] += num ; 
+          int  skip = 0 ,  take = 0 ;   // take stores total sum if we include the present value 
+          // skip stores the total sum if we dont include the present value 
+          for ( auto  x : m ) { 
+              if ( m . find ( ( x . first ) - 1 ) == m . end ( ) ) {   // no. just before x->first is not in map 
+                 skip = take ; 
+                 take += x . second ; 
+              } 
+              else { 
+                  int  temp = max ( take ,  skip + x . second ) ; 
+                 skip = take ; 
+                 take = temp ; 
+              } 
+          } 
+          return  take ; 
+      } 
+ } ;
