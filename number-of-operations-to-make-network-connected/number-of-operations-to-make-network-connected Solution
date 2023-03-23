@@ -1,0 +1,30 @@
+// resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+      void   dfs ( vector < bool >   & vis ,   int  node ,  vector < int >  adj [ ] ) { 
+         vis [ node ] = true ; 
+          for ( int  i : adj [ node ] ) { 
+              if ( vis [ i ] == false ) 
+                  dfs ( vis ,  i ,  adj ) ; 
+          } 
+      } 
+     
+      int   makeConnected ( int  n ,  vector < vector < int >> &  e )   { 
+          if ( e . size ( ) + 1 < n ) 
+              return   - 1 ; 
+         vector < int >  adj [ n ] ; 
+          for ( int  i = 0 ;  i < e . size ( ) ;  i ++ ) { 
+             adj [ e [ i ] [ 0 ] ] . push_back ( e [ i ] [ 1 ] ) ; 
+             adj [ e [ i ] [ 1 ] ] . push_back ( e [ i ] [ 0 ] ) ; 
+          } 
+         vector < bool >   vis ( n ,   false ) ; 
+          int  answer = - 1 ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              if ( vis [ i ] ) 
+                  continue ; 
+             answer ++ ; 
+              dfs ( vis ,  i ,  adj ) ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
