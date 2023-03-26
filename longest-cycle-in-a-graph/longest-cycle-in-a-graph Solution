@@ -1,0 +1,26 @@
+class   Solution   { 
+ public : 
+      int  answer = - 1 ; 
+      int   longestCycle ( vector < int > &  edges )   { 
+          int  n = edges . size ( ) ; 
+         vector < pair < bool ,   int >>   visited ( n ,   { false , 0 } ) ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              dfs ( edges ,  visited ,  i ,   0 ) ; 
+          } 
+          if ( answer == 0 ) 
+              return   - 1 ; 
+          return  answer ; 
+      } 
+      void   dfs ( vector < int >   & edges ,  vector < pair < bool , int >>   & visited ,   int  node ,   int  sum ) { 
+          if ( node >= edges . size ( )   ||  edges [ node ] == - 1 ) 
+              return ; 
+          if ( visited [ edges [ node ] ] . first ) { 
+              if ( visited [ edges [ node ] ] . second != - 1 ) 
+                 answer = max ( sum - visited [ edges [ node ] ] . second ,  answer ) ; 
+              return ; 
+          } 
+         visited [ edges [ node ] ] = { true , sum } ; 
+          dfs ( edges ,  visited ,  edges [ node ] ,  sum + 1 ) ; 
+         visited [ edges [ node ] ] = { true , - 1 } ; 
+      } 
+ } ;
