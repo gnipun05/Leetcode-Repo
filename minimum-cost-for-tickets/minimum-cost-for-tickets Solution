@@ -1,0 +1,18 @@
+class   Solution   { 
+ public : 
+      int   mincostTickets ( vector < int > &  v ,  vector < int > &  cost )   { 
+          int  n = v . size ( ) ; 
+          int  j = n - 1 ; 
+         vector < int > dp ( 396 , 0 ) ; 
+          for ( int  i = 365 ; i >= 0 ; i -- ) { 
+              if ( j >= 0   &&  v [ j ] == i ) { 
+                 dp [ i ]   =   min ( { cost [ 0 ] + dp [ i + 1 ] , cost [ 1 ]   +  dp [ i + 7 ]   ,  cost [ 2 ]   +  dp [ i + 30 ] } ) ; 
+                 j -- ; 
+              } 
+              else { 
+                 dp [ i ]   =  dp [ i + 1 ] ; 
+              } 
+          } 
+          return  dp [ 0 ] ; 
+      } 
+ } ;
