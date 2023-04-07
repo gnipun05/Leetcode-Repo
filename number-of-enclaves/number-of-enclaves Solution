@@ -1,0 +1,28 @@
+class   Solution   { 
+ public : 
+      int  count = 0 ; 
+      int   numEnclaves ( vector < vector < int >> &  grid )   { 
+          int  answer = 0 ,  m = grid . size ( ) ,  n = grid [ 0 ] . size ( ) ; 
+          for ( int  i = 1 ;  i < m - 1 ;  i ++ ) { 
+              for ( int  j = 1 ;  j < n - 1 ;  j ++ ) { 
+                  int  temp = 0 ; 
+                  if ( solve ( grid ,  m ,  n ,  i ,  j ,  temp ) ) 
+                     answer += temp ; 
+              } 
+          } 
+          return  answer ; 
+      } 
+      bool   solve ( vector < vector < int >>   & grid ,   int  m ,   int  n ,   int  x ,   int  y ,   int   & sz ) { 
+          if ( grid [ x ] [ y ] == 0 ) 
+              return   true ; 
+          if ( ( x == 0   ||  y == 0   ||  x == m - 1   ||  y == n - 1 ) && ( grid [ x ] [ y ] == 1 ) ) 
+              return   false ; 
+         sz ++ ; 
+         grid [ x ] [ y ] = 0 ; 
+          bool  up = solve ( grid ,  m ,  n ,  x - 1 ,  y ,  sz ) ; 
+          bool  down = solve ( grid ,  m ,  n ,  x + 1 ,  y ,  sz ) ; 
+          bool  left = solve ( grid ,  m ,  n ,  x ,  y - 1 ,  sz ) ; 
+          bool  right = solve ( grid ,  m ,  n ,  x ,  y + 1 ,  sz ) ; 
+          return  up && left && down && right ; 
+      } 
+ } ;
