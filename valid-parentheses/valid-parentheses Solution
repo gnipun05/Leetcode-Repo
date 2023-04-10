@@ -1,0 +1,21 @@
+// resubmitting cos of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+      bool   isValid ( string str )   { 
+         stack < int >  s ; 
+          for ( int  i = 0 ;  i < str . size ( ) ;  i ++ ) { 
+              char  ch  =  str [ i ] ; 
+              if ( ch == '('   ||  ch == '{'   ||  ch == '[' ) 
+                 s . push ( ch ) ; 
+              else { 
+                  if ( s . empty ( ) ) 
+                      return   false ; 
+                  char  a = s . top ( ) ; 
+                 s . pop ( ) ; 
+                  if ( ( ch == ')'   &&  a != '(' ) || ( ch == ']'   &&  a != '[' ) || ( ch == '}'   &&  a != '{' ) ) 
+                      return   false ; 
+              } 
+          } 
+          return  s . empty ( ) ; 
+      } 
+ } ;
