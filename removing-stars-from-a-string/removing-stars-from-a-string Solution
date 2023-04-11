@@ -1,0 +1,19 @@
+// resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+     string  removeStars ( string s )   { 
+         stack < char >  st ; 
+          for ( int  i = 0 ;  i < s . size ( ) ;  i ++ ) { 
+              if ( s [ i ] != '*' ) 
+                 st . push ( s [ i ] ) ; 
+              else 
+                 st . pop ( ) ; 
+          } 
+         string answer = "" ; 
+          while ( st . empty ( ) == false ) { 
+             answer += st . top ( ) ;  st . pop ( ) ; 
+          } 
+          reverse ( answer . begin ( ) ,  answer . end ( ) ) ; 
+          return  answer ; 
+      } 
+ } ;
