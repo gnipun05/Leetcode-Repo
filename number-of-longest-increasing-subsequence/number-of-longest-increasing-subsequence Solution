@@ -1,0 +1,34 @@
+class   Solution   { 
+ public : 
+      int   findNumberOfLIS ( vector < int > &  nums )   { 
+          int  n = nums . size ( ) ,  omax = 1 ,  ans = 1 ; 
+         vector < pair < int ,   int >>   dp ( n ,   { 1 ,   1 } ) ; 
+          for ( int  i = 1 ;  i < n ;  i ++ ) { 
+              for ( int  j = 0 ;  j < i ;  j ++ ) { 
+                  if ( nums [ j ] < nums [ i ] ) { 
+                      if ( dp [ i ] . first == dp [ j ] . first + 1 ) { 
+                         dp [ i ] . second += dp [ j ] . second ; 
+                      } 
+                      else   if ( dp [ i ] . first < dp [ j ] . first + 1 ) { 
+                         dp [ i ] . first = dp [ j ] . first + 1 ; 
+                         dp [ i ] . second = dp [ j ] . second ; 
+                      } 
+                  } 
+              } 
+              if ( omax == dp [ i ] . first ) { 
+                 ans += dp [ i ] . second ; 
+              } 
+              else   if ( omax < dp [ i ] . first ) { 
+                 ans = dp [ i ] . second ; 
+              } 
+             omax = max ( omax ,  dp [ i ] . first ) ; 
+          } 
+          int  temp = 0 ; 
+          for ( auto [ i , j ] : dp ) { 
+              if ( i == omax ) { 
+                 temp += j ; 
+              } 
+          } 
+          return   max ( temp ,  ans ) ; 
+      } 
+ } ;
