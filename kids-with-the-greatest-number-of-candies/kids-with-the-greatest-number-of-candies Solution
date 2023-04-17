@@ -1,0 +1,22 @@
+class   Solution   { 
+ public : 
+     vector < bool >   kidsWithCandies ( vector < int > &  candies ,   int  extraCandies )   { 
+          // store size of candies 
+          int  n  =  candies . size ( ) ; 
+          // store max value in candies    
+          int  max  =   * max_element ( candies . begin ( ) ,  candies . end ( ) ) ; 
+          // create a vector of boolean 
+         vector < bool >   ans ( n ) ; 
+          // iterate over candies  
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+                  // if candies[i] + extraCandies is >= max then push true in ans 
+                  if ( candies [ i ]   +  extraCandies  >=  max ) 
+                         ans [ i ]   =   true ; 
+                  // else push false in ans 
+                  else 
+                         ans [ i ]   =   false ; 
+          } 
+          // return ans 
+          return  ans ; 
+      } 
+ } ;
