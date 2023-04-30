@@ -1,0 +1,53 @@
+class   DSU   { 
+     vector < int >  Parent ,  Rank ; 
+      int  distinctComponents ; 
+      public : 
+      DSU ( int  n )   { 
+         Parent . resize ( n + 1 ) ; 
+         Rank . resize ( n + 1 ,   0 ) ; 
+         distinctComponents  =  n ; 
+          for   ( int  i  =   0 ;  i  <=  n ;  i ++ )  Parent [ i ]   =  i ; 
+      } 
+      int   Find ( int  x )   { 
+          return  Parent [ x ]   =  Parent [ x ]   ==  x  ?  x  :   Find ( Parent [ x ] ) ; 
+      } 
+      bool   Union ( int  x ,   int  y )   { 
+          int  xset  =   Find ( x ) ,  yset  =   Find ( y ) ; 
+          if   ( xset  !=  yset )   { 
+             distinctComponents -- ; 
+             Rank [ xset ]   <  Rank [ yset ]   ?  Parent [ xset ]   =  yset  :  Parent [ yset ]   =  xset ; 
+             Rank [ xset ]   +=  Rank [ xset ]   ==  Rank [ yset ] ; 
+              return   true ; 
+          } 
+          return   false ; 
+      } 
+      int   getDistinctComponents ( )   { 
+          return  distinctComponents ; 
+      } 
+ } ; 
+ 
+ class   Solution   { 
+ public : 
+      int   maxNumEdgesToRemove ( int  n ,  vector < vector < int >> &  edges )   { 
+          // Sort edges by their type such that all type 3 edges will be at the beginning. 
+          sort ( edges . begin ( ) ,  edges . end ( ) ,   [ ]   ( vector < int >   & a ,  vector < int >   & b )   {   return  a [ 0 ]   >  b [ 0 ] ;   } ) ; 
+         
+          int  edgesAdded  =   0 ; 
+         DSU  bob ( n ) ,   alice ( n ) ; 
+          for   ( auto   & edge :  edges )   { 
+              int  type  =  edge [ 0 ] ,  one  =  edge [ 1 ] ,  two  =  edge [ 2 ] ; 
+              switch ( type )   { 
+                  case   3 : 
+                     edgesAdded  +=   ( bob . Union ( one ,  two )   |  alice . Union ( one ,  two ) ) ; 
+                      break ; 
+                  case   2 : 
+                     edgesAdded  +=  bob . Union ( one ,  two ) ; 
+                      break ; 
+                  case   1 : 
+                     edgesAdded  +=  alice . Union ( one ,  two ) ; 
+                      break ; 
+              } 
+          }         
+          return   ( bob . getDistinctComponents ( ) == 1   &&  alice . getDistinctComponents ( ) == 1 )   ?   ( edges . size ( ) - edgesAdded )   :   - 1 ; 
+      } 
+ } ;
