@@ -1,0 +1,19 @@
+class   Solution   { 
+ public : 
+     vector < int >   longestObstacleCourseAtEachPosition ( vector < int > &  arr )   { 
+          int  n = arr . size ( ) ; 
+         vector < int >  nums ,   answer ( n ,   1 ) ; 
+         nums . push_back ( arr [ 0 ] ) ; 
+          for ( int  i = 1 ;  i < n ;  i ++ ) { 
+              auto  ptr = upper_bound ( nums . begin ( ) ,  nums . end ( ) ,  arr [ i ] ) ; 
+              if ( ptr == nums . end ( ) ) { 
+                 nums . push_back ( arr [ i ] ) ; 
+                 ptr = nums . end ( ) - 1 ; 
+              } 
+              else 
+                  * ptr = arr [ i ] ; 
+             answer [ i ] = ( ptr - nums . begin ( ) + 1 ) ; 
+          } 
+          return  answer ; 
+      } 
+ } ; 
