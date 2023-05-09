@@ -1,0 +1,42 @@
+// Resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+     vector < int >   spiralOrder ( vector < vector < int >> &  matrix )   { 
+         vector < int >  answer ; 
+          int  n = matrix . size ( ) - 1 ,  m = matrix [ 0 ] . size ( ) - 1 ; 
+          int  total = ( n + 1 ) * ( m + 1 ) ; 
+          int  count = 0 ; 
+          int  i = 0 ,  j = 0 ; 
+          while ( count < total ) { 
+              for ( int  k = j ;  k <= m ;  k ++ ) { 
+                 answer . push_back ( matrix [ i ] [ k ] ) ; 
+                 count ++ ; 
+              } 
+             i ++ ; 
+              if ( count == total ) 
+                  break ; 
+              for ( int  k = i ;  k <= n ;  k ++ ) { 
+                 answer . push_back ( matrix [ k ] [ m ] ) ; 
+                 count ++ ; 
+              } 
+              if ( count == total ) 
+                  break ; 
+             m -- ; 
+              for ( int  k = m ;  k >= j ;  k -- ) { 
+                 answer . push_back ( matrix [ n ] [ k ] ) ; 
+                 count ++ ; 
+              } 
+              if ( count == total ) 
+                  break ; 
+             n -- ; 
+              for ( int  k = n ;  k >= i ;  k -- ) { 
+                 answer . push_back ( matrix [ k ] [ j ] ) ; 
+                 count ++ ; 
+              } 
+              if ( count == total ) 
+                  break ; 
+             j ++ ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
