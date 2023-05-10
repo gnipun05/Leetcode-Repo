@@ -1,0 +1,33 @@
+// Resubmitting coz of it being the daily leetcode Question 
+ class   Solution   { 
+ public : 
+     vector < vector < int >>   generateMatrix ( int  n )   { 
+         vector < vector < int >>   answer ( n ,   vector < int >   ( n ,   0 ) ) ; 
+          int  r = n - 1 ,  c = n - 1 ; 
+          int  i = 0 ,  j = 0 ; 
+          int  a = 1 ; 
+          while ( a <= n * n ) { 
+              for ( int  k = j ;  k <= c ;  k ++ ) { 
+                 answer [ i ] [ k ] = a ; 
+                 a ++ ; 
+              } 
+             i ++ ; 
+              for ( int  k = i ;  k <= r ;  k ++ ) { 
+                 answer [ k ] [ c ] = a ; 
+                 a ++ ; 
+              } 
+             c -- ; 
+              for ( int  k = c ;  k >= j ;  k -- ) { 
+                 answer [ r ] [ k ] = a ; 
+                 a ++ ; 
+              } 
+             r -- ; 
+              for ( int  k = r ;  k >= i ;  k -- ) { 
+                 answer [ k ] [ j ] = a ; 
+                 a ++ ; 
+              } 
+             j ++ ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
