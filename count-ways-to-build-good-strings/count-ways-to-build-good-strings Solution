@@ -1,0 +1,39 @@
+class   Solution   { 
+ public : 
+ //     vector<string> arr; 
+     vector < long   long >  dp ; 
+      int  mod  =   1000000007 ; 
+ //     void dfs(string str, int len, int zero, int one, int high, int low, int &answer){ 
+ //         if(len>=low && len<=high){ 
+ //             answer=(answer+1)%mod; 
+ //         } 
+ //         // int temp=-1; 
+         
+ //         if(len+zero<=high) 
+ //             dfs(str+'0', len+zero, zero, one, high, low, answer); 
+ //         if(len+one<=high) 
+ //             dfs(str+'1', len+one, zero, one, high, low, answer); 
+ //         dp[len]=answer; 
+ //         // return dp[len]; 
+             
+ //     } 
+      int   countGoodStrings ( int  low ,   int  high ,   int  zero ,   int  one )   { 
+          // string str=""; 
+         dp . resize ( high + 1 , 0 ) ; 
+          // int answer=0; 
+          // dfs(str, 0, zero, one, high, low, answer); 
+          // return (answer)%mod; 
+         dp [ 0 ] = 1 ; 
+          for ( int  i = 1 ;  i <= high ;  i ++ ) { 
+              if ( i >= zero ) 
+                 dp [ i ] = ( dp [ i ] + dp [ i - zero ] ) % mod ; 
+              if ( i >= one ) 
+                 dp [ i ] = ( dp [ i ] + dp [ i - one ] ) % mod ; 
+          } 
+          long   long  answer = 0 ; 
+          for ( int  i = low ;  i <= high ;  i ++ ) { 
+             answer = ( answer + dp [ i ] ) % mod ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
