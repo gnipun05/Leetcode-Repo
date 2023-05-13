@@ -1,0 +1,14 @@
+class   Solution   { 
+ public : 
+      long   long   mostPoints ( vector < vector < int >> &  q )   { 
+          int  n = q . size ( ) ; 
+         vector < long   long   int >   dp ( n + 1 ,   0 ) ; 
+          for ( int  i = n - 1 ;  i >= 0 ;  i -- ) { 
+              long   long   int  a = q [ i ] [ 0 ] ; 
+              if ( q [ i ] [ 1 ] < n - 1 - i ) 
+                 a += dp [ i + q [ i ] [ 1 ] + 1 ] ; 
+             dp [ i ] = max < long   long   int > ( a ,  dp [ i + 1 ] ) ; 
+          } 
+          return  dp [ 0 ] ; 
+      } 
+ } ;
