@@ -1,0 +1,15 @@
+class   Solution   { 
+ public : 
+     vector < int >   findSmallestSetOfVertices ( int  n ,  vector < vector < int >> &  edges )   { 
+         vector < int >  adj [ n ] ,   indegree ( n ,   0 ) ; 
+          for ( vector < int >   & v :  edges ) { 
+             adj [ v [ 0 ] ] . push_back ( v [ 1 ] ) ; 
+             indegree [ v [ 1 ] ] ++ ; 
+          } 
+         vector < int >  answer ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) 
+              if ( indegree [ i ] == 0 ) 
+                 answer . push_back ( i ) ; 
+          return  answer ; 
+      } 
+ } ;
