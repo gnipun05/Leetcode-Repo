@@ -1,41 +1,34 @@
-class   Solution   { 
+# define   WHITE   ( 0 ) 
+ # define   GRAY    ( 1 ) 
+ # define   BLACK   ( 2 ) 
+ 
+ class   Solution   { 
  public : 
-     vector < bool >  answer ; 
-      bool   dfs ( vector < vector < int >>   &  adj ,  vector < bool >   & vis ,   int  node ) { 
-         vis [ node ] = true ; 
-          bool  flag = true ; 
-          if ( adj [ node ] . size ( ) == 0 ) { 
-             answer [ node ] = true ; 
-              return   true ; 
-          } 
-          for ( int  i : adj [ node ] ) { 
-              if ( vis [ i ] == false ) { 
-                  if ( dfs ( adj ,  vis ,  i ) == false ) { 
-                     flag = false ; 
-                  } 
-              } 
-              else   if ( answer [ i ] == false ) { 
-                 flag = false ; 
+     vector < int >   eventualSafeNodes ( vector < vector < int >>   & graph )   { 
+          int  n  =  graph . size ( ) ; 
+         vector < int >  answer ; 
+         vector < int >   visited ( n ,  WHITE ) ; 
+ 
+          for   ( int  i  =   0 ;  i  <  n ;   ++ i )   { 
+              if   ( dfs ( graph ,  i ,  visited )   ==  BLACK )   { 
+                 answer . push_back ( i ) ; 
               } 
           } 
-          if ( flag ) 
-             answer [ node ] = true ; 
-          return  flag ; 
+          return  answer ; 
       } 
-     
-     vector < int >   eventualSafeNodes ( vector < vector < int >> &  graph )   { 
-          int  n = graph . size ( ) ; 
-         answer . resize ( n ,   false ) ; 
-         vector < bool >   vis   ( n ,   false ) ; 
-          for ( int  i = 0 ;  i < n ;  i ++ ) { 
-              if ( vis [ i ] == false ) 
-                  if ( dfs ( graph ,  vis ,  i ) ) 
-                     answer . push_back ( i ) ; 
+ private : 
+      int   dfs ( vector < vector < int >>   & graph ,   int  curr ,  vector < int >   & visited )   { 
+          if   ( visited [ curr ]   !=  WHITE )   { 
+              return  visited [ curr ] ; 
           } 
-         vector < int >  res ; 
-          for ( int  i = 0 ;  i < n ;  i ++ ) 
-              if ( answer [ i ] ) 
-                 res . push_back ( i ) ; 
-          return  res ; 
+ 
+         visited [ curr ]   =  GRAY ; 
+          for   ( int  i  =   0 ;  i  <  graph [ curr ] . size ( ) ;   ++ i )   { 
+              if   ( dfs ( graph ,  graph [ curr ] [ i ] ,  visited )   ==  GRAY )   { 
+                  return  GRAY ; 
+              } 
+          } 
+         
+          return  visited [ curr ]   =  BLACK ; 
       } 
  } ;
