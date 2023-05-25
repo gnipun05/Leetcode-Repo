@@ -1,0 +1,26 @@
+class   Solution   { 
+ public : 
+      int   numOfMinutes ( int  n ,   int  headID ,  vector < int > &  manager ,  vector < int > &  informTime )   { 
+         vector < pair < int ,   int >>  adj [ n ] ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              if ( i != headID ) 
+                 adj [ manager [ i ] ] . push_back ( { i ,  informTime [ manager [ i ] ] } ) ; 
+          } 
+          int  answer = 0 ; 
+         queue < pair < int ,   int >>  q ; 
+         q . push ( { headID ,   0 } ) ; 
+          while ( q . size ( ) ) { 
+              int  sz = q . size ( ) ; 
+              for ( int  i = 0 ;  i < sz ;  i ++ ) { 
+                  auto [ x ,  y ] = q . front ( ) ;  q . pop ( ) ; 
+                  if ( adj [ x ] . size ( ) == 0 ) 
+                     answer = max ( answer ,  y ) ; 
+                  else 
+                      for ( auto   [ a , b ]   : adj [ x ] ) { 
+                         q . push ( { a ,  b + y } ) ; 
+                      } 
+              } 
+          } 
+          return  answer ; 
+      } 
+ } ;
