@@ -1,0 +1,25 @@
+// Time: O(n^3) -> notice it 
+ // Space: O(n^2) + Recursive Stack 
+ class   Solution   { 
+ public : 
+      int   solve ( vector < vector < int >> &  dp ,  vector < int > &  pre ,   int  idx ,   int  m ) { 
+          int  n = pre . size ( ) ; 
+          if ( idx + 2 * m >= n ) 
+              return  pre [ idx ] ; 
+          if ( dp [ idx ] [ m ] != - 1 ) 
+              return  dp [ idx ] [ m ] ; 
+          for ( int  i = 1 ;  i <= 2 * m ;  i ++ ) { 
+             dp [ idx ] [ m ] = max ( dp [ idx ] [ m ] ,  pre [ idx ] - solve ( dp ,  pre ,   ( idx + i ) ,   max ( i ,  m ) ) ) ; 
+          } 
+          return  dp [ idx ] [ m ] ; 
+      } 
+      int   stoneGameII ( vector < int > &  piles )   { 
+          int  n = piles . size ( ) ; 
+         vector < vector < int >>   dp ( n ,   vector < int >   ( 2 * n ,   - 1 ) ) ; 
+         vector < int >   prefixSum ( n ) ; 
+         prefixSum [ n - 1 ] = piles [ n - 1 ] ; 
+          for ( int  i = n - 2 ;  i >= 0 ;  i -- ) 
+             prefixSum [ i ] = prefixSum [ i + 1 ] + piles [ i ] ; 
+          return   solve ( dp ,  prefixSum ,   0 ,   1 ) ; 
+      } 
+ } ;
