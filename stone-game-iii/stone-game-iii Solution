@@ -1,0 +1,37 @@
+class   Solution   { 
+ public : 
+      int   solve ( vector < int >   & suffix ,  vector < int >   & dp ,   int  i ) { 
+          int  n = suffix . size ( ) ; 
+          if ( i >= n ) 
+              return   0 ; 
+ 
+          if ( i == n - 1 ) 
+              return  dp [ i ] = suffix [ i ] ; 
+ 
+          if ( dp [ i ] != INT_MIN ) 
+              return  dp [ i ] ; 
+ 
+          for ( int  x = 0 ;  x < 3 ;  x ++ ) { 
+             dp [ i ] = max ( dp [ i ] ,  suffix [ i ] - solve ( suffix ,  dp ,  i + x + 1 ) ) ; 
+          } 
+          return  dp [ i ] ; 
+      } 
+     string  stoneGameIII ( vector < int > &  val )   { 
+          int  n = val . size ( ) ; 
+ 
+         vector < int >   suffix ( n ,  val [ n - 1 ] ) ; 
+          for ( int  i = n - 2 ;  i >= 0 ;  i -- ) 
+             suffix [ i ] = suffix [ i + 1 ] + val [ i ] ; 
+ 
+         vector < int >   dp ( n ,  INT_MIN ) ; 
+ 
+          solve ( suffix ,  dp ,   0 ) ; 
+                 
+          int  sum = suffix [ 0 ] ; 
+          if ( ( sum - dp [ 0 ] ) > dp [ 0 ] ) 
+              return   "Bob" ; 
+          else   if ( ( sum - dp [ 0 ] ) == dp [ 0 ] ) 
+              return   "Tie" ; 
+          return   "Alice" ; 
+      } 
+ } ;
