@@ -1,0 +1,28 @@
+// https://leetcode.com/problems/subarrays-with-k-different-integers/solutions/235235/c-java-with-picture-prefixed-sliding-window/ 
+ 
+ // refer to the first accepted solution to see another approach to solve this question 
+ // Method to find subarray with at most K different elements is an important question in itself 
+ class   Solution   { 
+ public : 
+      int   subarraysWithKDistinct ( vector < int > &  nums ,   int  k )   { 
+         unordered_map < int ,   int >  m ; 
+          int  i = 0 ,  j = 0 ,  prefix = 0 ,  answer = 0 ,  n = nums . size ( ) ; 
+          while ( j < n ) { 
+             m [ nums [ j ] ] ++ ; 
+             j ++ ; 
+              if ( m . size ( ) > k ) { 
+                 m . erase ( nums [ i ] ) ; 
+                 prefix = 0 ; 
+                 i ++ ; 
+              } 
+              while ( m [ nums [ i ] ] > 1 ) { 
+                 m [ nums [ i ] ] -- ; 
+                 i ++ ; 
+                 prefix ++ ; 
+              } 
+              if ( m . size ( ) == k ) 
+                 answer += prefix + 1 ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
