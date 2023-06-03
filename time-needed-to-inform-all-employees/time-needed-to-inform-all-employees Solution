@@ -1,4 +1,5 @@
-class   Solution   { 
+// resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
  public : 
       int   numOfMinutes ( int  n ,   int  headID ,  vector < int > &  manager ,  vector < int > &  informTime )   { 
          vector < pair < int ,   int >>  adj [ n ] ; 
