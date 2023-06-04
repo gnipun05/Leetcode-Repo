@@ -17,6 +17,7 @@ class   Solution   {
           for ( int  i = 0 ;  i < n ;  i ++ ) { 
               for ( int  j = 0 ;  j < n ;  j ++ ) { 
                   if ( arr [ i ] [ j ]   &&  i != j  &&  vis [ j ] == false ) { 
+                      //increment answer only when the source node is seen for the first time 
                       if ( vis [ i ] == false ) 
                          answer ++ ; 
                       dfs ( arr ,  i ,  j ,  vis ) ; 
@@ -24,6 +25,7 @@ class   Solution   {
                   } 
               } 
           } 
+          // to handle isolated nodes 
           for ( bool  i : vis ) { 
               if ( i == false ) 
                  answer ++ ; 
