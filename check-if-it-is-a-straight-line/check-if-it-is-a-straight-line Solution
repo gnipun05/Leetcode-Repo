@@ -1,0 +1,25 @@
+class   Solution   { 
+ public : 
+      bool   checkStraightLine ( vector < vector < int >> &  cordinates )   { 
+          sort ( cordinates . begin ( ) ,  cordinates . end ( ) ) ; 
+          double  x1 = cordinates [ 0 ] [ 0 ] ,  x2 = cordinates [ 1 ] [ 0 ] ; 
+          double  y1 = cordinates [ 0 ] [ 1 ] ,  y2 = cordinates [ 1 ] [ 1 ] ; 
+          double  m = 0 ; 
+          if ( x2 - x1 == 0 ) 
+              for ( int  i = 2 ;  i < cordinates . size ( ) ;  i ++ ) { 
+                  double  x = cordinates [ i ] [ 0 ] ; 
+                  if ( x1 != x ) 
+                      return   false ; 
+              } 
+          else { 
+             m = ( y2 - y1 ) / ( x2 - x1 ) ; 
+              double  c = y1 - m * x1 ; 
+              for ( int  i = 2 ;  i < cordinates . size ( ) ;  i ++ ) { 
+                  double  x = cordinates [ i ] [ 0 ] ,  y = cordinates [ i ] [ 1 ] ; 
+                  if ( y != m * x + c ) 
+                      return   false ; 
+              } 
+          } 
+          return   true ; 
+      } 
+ } ;
