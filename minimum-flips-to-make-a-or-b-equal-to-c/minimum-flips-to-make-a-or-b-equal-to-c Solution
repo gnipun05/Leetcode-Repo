@@ -1,0 +1,24 @@
+class   Solution   { 
+ public : 
+      int   minFlips ( int  a ,   int  b ,   int  c )   { 
+          int  Or = a | b ; 
+          int  Xor = a ^ b ; 
+          int  answer = 0 ; 
+          for ( int  i = 0 ;  i < 31 ;  i ++ ) { 
+              int  mask = c & ( 1 << i ) ; 
+              if ( mask ) { 
+                  if ( ( mask & Or ) == 0 ) { 
+                     answer ++ ; 
+                  } 
+              } 
+              else { 
+                  if ( ( ( 1 << i ) & Or ) != 0 ) { 
+                      if ( ( ( 1 << i ) & Xor ) == 0 ) 
+                         answer ++ ; 
+                     answer ++ ; 
+                  } 
+              } 
+          } 
+          return  answer ; 
+      } 
+ } ;
