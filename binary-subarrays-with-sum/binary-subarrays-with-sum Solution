@@ -1,0 +1,20 @@
+class   Solution   { 
+ public : 
+      int   numSubarraysWithSum ( vector < int > &  nums ,   int  goal )   { 
+          return   atMost ( nums ,  goal ) - atMost ( nums ,  goal - 1 ) ;   // this will give the number of subarrays having sum exactly equal to goal 
+      } 
+      int   atMost ( vector < int >   & nums ,   int  sum ) {   // this function is to get number of subarrays having their sum <= sum 
+          if ( sum < 0 )    return   0 ;   // this will execute only when goal==0 for goal-1 case 
+          int  n = nums . size ( ) ; 
+          int  answer = 0 ,  start = 0 ; 
+          for ( int  end = 0 ;  end < n ;  end ++ ) { 
+             sum -= nums [ end ] ; 
+              while ( sum < 0 ) {   // when sum<0, it means that sum of subarray has crossed the value of sum; so we decrease the size of window by adding nums[start] in sum and increasing start (until sum is back >= 0) 
+                 sum += nums [ start ] ; 
+                 start ++ ; 
+              } 
+             answer += end - start + 1 ;   // adding the lengths of subarrays having sum<=sum 
+          } 
+          return  answer ; 
+      } 
+ } ;   
