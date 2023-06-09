@@ -1,16 +1,19 @@
 class   Solution   { 
  public : 
       int   minAddToMakeValid ( string s )   { 
-          int  cnt  =   0 , ans  =   0 ; 
-          for ( int  i  = 0 ; i < s . length ( ) ; i ++ ) { 
-              if ( s [ i ] == '(' ) cnt ++ ; 
-              else  cnt -- ; 
-              if ( cnt < 0 ) { 
-                 ans ++ ;   //ans+=abs(cnt); 
-                 cnt = 0 ; 
+         stack < char >  st ; 
+          int  answer = 0 ; 
+          for ( int  i = 0 ;  i < s . size ( ) ;  i ++ ) { 
+              if ( s [ i ] == '(' ) 
+                 st . push ( '(' ) ; 
+              else { 
+                  if ( st . empty ( ) ) 
+                     answer ++ ; 
+                  else 
+                     st . pop ( ) ; 
               } 
           } 
-         ans += cnt ; 
-          return  ans ; 
+         answer += st . size ( ) ; 
+          return  answer ; 
       } 
  } ;
