@@ -1,0 +1,29 @@
+// https://leetcode.com/problems/maximum-value-at-a-given-index-in-a-bounded-array/solutions/1120761/greedy-binarysearch-math-explained/ 
+ class   Solution   { 
+ public : 
+      int   maxValue ( int  n ,   int  index ,   int  maxSum )   { 
+          long  lo = 1   ,  hi  =  INT_MAX  ,  result = 0 ; 
+         
+          while ( lo <= hi ) { 
+              int  mid =  lo  +   ( hi - lo ) / 2 ; 
+ 
+              long  left = Sum ( min ( index , mid - 1 ) , mid ) ; 
+             left += max ( 0 , index - mid + 1 ) ; 
+             
+              long  right = Sum ( min ( n - index - 1 , mid - 1 ) , mid ) ; 
+             right += max ( 0 , ( n - index - mid ) ) ; 
+                 
+              if ( left + right + mid <= maxSum ) { 
+                 result = mid ; 
+                 lo = mid + 1 ; 
+              } else { 
+                 hi = mid - 1 ; 
+              }     
+          } 
+          return   ( int ) result ; 
+      } 
+     
+      long   Sum ( long  noofElement , int  x ) { 
+          return  x * ( noofElement )   -   ( ( noofElement * ( noofElement + 1 ) ) / 2 ) ; 
+      } 
+ } ;
