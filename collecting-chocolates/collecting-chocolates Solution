@@ -1,0 +1,27 @@
+class   Solution   { 
+ public : 
+      //try every single possible rotation. Every rotation 
+      //check if we can buy each possible chocolate at a cheaper price  
+      //and see if this reduces the total_minimum_cost  
+      long   long   minCost ( vector < int > &  nums ,   int  x )   { 
+          long   long  min_cost  =   0 ; 
+          for   ( int  num :  nums ) { 
+             min_cost  +=  num ;  
+          } 
+         vector < int >   min_costs ( nums . begin ( ) ,  nums . end ( ) ) ; 
+          for   ( long   long  total_rots  =   1 ;  total_rots  <  nums . size ( ) ;   ++ total_rots ) { 
+              for   ( int  i  =   0 ;  i  <  nums . size ( ) ;   ++ i ) { 
+                  if   ( min_costs [ i ]   >  nums [ ( i  +  total_rots )   %  nums . size ( ) ] ) { 
+                     min_costs [ i ]   =  nums [ ( i  +  total_rots )   %  nums . size ( ) ] ; 
+                  } 
+              } 
+              long   long  curr_total  =   0 ; 
+              for   ( int  num :  min_costs ) { 
+                 curr_total  +=  num ; 
+              } 
+             curr_total  +=  total_rots  *  x ; 
+             min_cost  =   min ( min_cost ,  curr_total ) ;  
+          } 
+          return  min_cost ;  
+      } 
+ } ;
