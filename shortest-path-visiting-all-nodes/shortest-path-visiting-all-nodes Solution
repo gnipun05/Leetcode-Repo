@@ -1,0 +1,41 @@
+class   Solution   { 
+ public : 
+      int   shortestPathLength ( vector < vector < int >> &  graph )   { 
+          int  n = graph . size ( ) ; 
+          if ( n == 1 ) 
+              return   0 ; 
+          int  checkCondition = ( 1 << n ) - 1 ; 
+         queue < pair < int , int >>  q ; 
+         unordered_set < string >  s ; 
+         
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+             q . push ( { i ,   1 << i } ) ; 
+             string str = to_string ( i ) + " " + to_string ( 1 << i ) ; 
+             s . insert ( str ) ; 
+          } 
+         
+          int  answer = 0 ; 
+          while ( ! q . empty ( ) ) { 
+              int  size = q . size ( ) ; 
+              while ( size -- ) { 
+                  int  num = q . front ( ) . first ; 
+                  int  mask = q . front ( ) . second ; 
+                 q . pop ( ) ; 
+ 
+                  if ( checkCondition == mask ) 
+                      return  answer ; 
+                 
+                  for ( int  b  :  graph [ num ] ) { 
+                      int  newMask = mask | ( 1 << b ) ; 
+                     string str = to_string ( b ) + " " + to_string ( newMask ) ; 
+                      if ( s . find ( str ) == s . end ( ) ) { 
+                         q . push ( { b ,  newMask } ) ; 
+                         s . insert ( str ) ; 
+                      } 
+                  } 
+              } 
+             answer ++ ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
