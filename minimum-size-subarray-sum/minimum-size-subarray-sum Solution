@@ -2,9 +2,9 @@ class   Solution   {
  public : 
       int   minSubArrayLen ( int  target ,  vector < int > &  nums )   { 
           int  i = 0 ,  j = 0 ; 
-          int  n = nums . size ( ) ,  answer = INT_MAX ; 
+          int  n = nums . size ( ) ,  answer = n + 1 ;   // a valid answer will always be less than n+1 
           int  sum = 0 ; 
-          long   long  total = 0 ; 
+          // long long total=0; 
           while ( j < n ) { 
              sum += nums [ j ] ; 
               while ( sum >= target  &&  i <= j ) { 
@@ -12,11 +12,11 @@ class   Solution   {
                  sum -= nums [ i ] ; 
                  i ++ ; 
               } 
-             total = nums [ j ] + total ; 
+              // total=nums[j]+total; 
              j ++ ; 
           } 
-          if ( total < target ) 
-              return   0 ; 
-          return  answer ; 
+          // if(total<target) 
+          //     return 0; 
+          return  answer % ( n + 1 ) ; 
       } 
  } ;
