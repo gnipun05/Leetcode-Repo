@@ -1,0 +1,32 @@
+class   Solution   { 
+ public : 
+      int   networkDelayTime ( vector < vector < int >> &  times ,   int  n ,   int  k )   { 
+         vector < pair < int ,   int >>  adj [ n + 1 ] ; 
+          for ( int  i = 0 ;  i < times . size ( ) ;  i ++ ) 
+             adj [ times [ i ] [ 0 ] ] . push_back ( { times [ i ] [ 1 ] ,  times [ i ] [ 2 ] } ) ; 
+         priority_queue < pair < int ,   int > ,  vector < pair < int ,   int >> ,  greater < pair < int ,   int >> >  pq ; 
+         pq . push ( { 0 ,  k } ) ; 
+         unordered_map < int ,   int >  m ; 
+          // m[k]=0; 
+          while ( pq . empty ( ) == false ) { 
+              auto [ dist ,  node ] = pq . top ( ) ; pq . pop ( ) ; 
+             m [ node ] = dist ; 
+              if ( m . size ( ) == n ) { 
+                  int  answer = 0 ; 
+                  for ( auto  x : m ) 
+                     answer = max ( answer ,  x . second ) ; 
+                  return  answer ; 
+              } 
+              for ( int  i = 0 ;  i < adj [ node ] . size ( ) ;  i ++ ) { 
+                  int  newNode = adj [ node ] [ i ] . first ; 
+                  int  weight = adj [ node ] [ i ] . second ; 
+                  int  newDist = dist + weight ; 
+                  if ( m . count ( newNode ) == 0 ) { 
+                     pq . push ( { newDist ,  newNode } ) ; 
+                      // m[newNode]=newDist; 
+                  } 
+              } 
+          } 
+          return   - 1 ; 
+      } 
+ } ;
