@@ -1,0 +1,18 @@
+class   Solution   { 
+ public : 
+     vector < vector < int >>  answer ; 
+     vector < vector < int >>   permute ( vector < int > &  nums )   { 
+          rec ( nums ,   0 ) ; 
+          return  answer ; 
+      } 
+      void   rec ( vector < int >  nums ,   int  i ) { 
+          if ( i == nums . size ( ) ) 
+             answer . push_back ( nums ) ; 
+          else 
+              for ( int  j = i ;  j < nums . size ( ) ;  j ++ ) { 
+                  swap ( nums [ i ] ,  nums [ j ] ) ; 
+                  rec ( nums ,  i + 1 ) ; 
+                  // swap(nums[i], nums[j]); 
+              } 
+      } 
+ } ;
