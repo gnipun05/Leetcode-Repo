@@ -1,0 +1,22 @@
+class   Solution   { 
+ public : 
+      int  dp [ 14 ] [ 16383 ] ; 
+      int   dfs ( int  i ,   int  k ,   int  mask ,  vector < int > &  nums )   { 
+          if   ( i  ==  nums . size ( ) ) 
+              return   1 ; 
+          if   ( dp [ k ] [ mask ]   ==   - 1 )   { 
+             dp [ k ] [ mask ]   =   0 ; 
+              for   ( int  j  =   0 ;  j  <  nums . size ( ) ;   ++ j )   { 
+                  if   ( ( mask  &   ( 1   <<  j ) )   ==   0   &&  
+                  ( i  ==   0   ||  nums [ k ]   %  nums [ j ]   ==   0   ||  nums [ j ]   %  nums [ k ]   ==   0 ) )   { 
+                     dp [ k ] [ mask ]   =   ( dp [ k ] [ mask ]   +   dfs ( i  +   1 ,  j ,  mask  +   ( 1   <<  j ) ,  nums ) )   %   1000000007 ; 
+                  } 
+              } 
+          } 
+          return  dp [ k ] [ mask ] ; 
+      } 
+      int   specialPerm ( vector < int > &  nums )   { 
+          memset ( dp ,   - 1 ,   sizeof ( dp ) ) ; 
+          return   dfs ( 0 ,   0 ,   0 ,  nums ) ; 
+      } 
+ } ;
