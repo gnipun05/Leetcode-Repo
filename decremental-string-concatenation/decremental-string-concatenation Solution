@@ -1,0 +1,38 @@
+class   Solution   { 
+ public : 
+      int  answer = INT_MAX ; 
+      int   solve ( map < string ,   int > &  dp ,  vector < string >   & words ,   int  i ,  string str ,   int  len ) { 
+          if ( i == words . size ( ) ) { 
+              // answer=min(answer, len); 
+              return  len ; 
+          } 
+         string index = to_string ( i )   +  str ; 
+          if ( dp . count ( index ) ) 
+              return  dp [ index ] + len ; 
+          char  a = str [ 0 ] ,  b = str [ 1 ] ; 
+          int  n = words [ i ] . size ( ) ; 
+         string s1 ,  s2 ; 
+         s1 . push_back ( a ) ; 
+         s1 . push_back ( words [ i ] [ n - 1 ] ) ; 
+         s2 . push_back ( words [ i ] [ 0 ] ) ; 
+         s2 . push_back ( b ) ; 
+          int  x = 0 ,  y = 0 ; 
+          if ( b == words [ i ] [ 0 ] ) 
+             x = 1 ; 
+          if ( a == words [ i ] [ n - 1 ] ) 
+             y = 1 ; 
+          int  res = min ( solve ( dp ,  words ,  i + 1 ,  s1 ,  len + n - x ) , 
+          solve ( dp ,  words ,  i + 1 ,  s2 ,  len + n - y ) ) - len ; 
+         dp [ index ] = res ; 
+          return  res + len ; 
+      } 
+ 
+      int   minimizeConcatenatedLength ( vector < string > &  words )   { 
+         map < string , int >  dp ; 
+         string temp ; 
+          int  n = words [ 0 ] . size ( ) - 1 ; 
+         temp . push_back ( words [ 0 ] [ 0 ] ) ; 
+         temp . push_back ( words [ 0 ] [ n ] ) ; 
+          return   solve ( dp ,  words ,   1 ,  temp ,  words [ 0 ] . size ( ) ) ; 
+      } 
+ } ;
