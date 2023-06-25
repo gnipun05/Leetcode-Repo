@@ -1,0 +1,23 @@
+class   Solution   { 
+ public : 
+      int   solve ( vector < vector < int >>   & dp ,  vector < int >   & locations ,   int  i ,   int  finish ,   int  fuel ) { 
+          int  n = locations . size ( ) ; 
+          if ( fuel < 0 ) 
+              return   0 ; 
+          if ( dp [ i ] [ fuel ] != - 1 ) 
+              return  dp [ i ] [ fuel ] ; 
+          long   long  ans = 0 ; 
+          if ( i == finish ) 
+             ans  =   1 ; 
+          for ( int  j = 0 ;  j < n ;  j ++ ) { 
+              if ( i != j ) 
+                 ans = ( ans + solve ( dp ,  locations ,  j ,  finish ,  fuel - abs ( locations [ i ] - locations [ j ] ) ) ) % 1000000007 ; 
+          } 
+          return  dp [ i ] [ fuel ] = ans ; 
+      } 
+      int   countRoutes ( vector < int > &  locations ,   int  start ,   int  finish ,   int  fuel )   { 
+          int  n = locations . size ( ) ; 
+         vector < vector < int >>   dp ( n ,   vector < int >   ( fuel + 1 ,   - 1 ) ) ; 
+          return   solve ( dp ,  locations ,  start ,  finish ,  fuel ) ; 
+      } 
+ } ;
