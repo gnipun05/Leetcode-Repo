@@ -16,6 +16,8 @@
  };
  */ 
  
+ // this is a general solution, i.e. it will work for non complete trees as well 
+ // refer to previously accepted solution to see solution for this particular scenario 
  class   Solution   { 
  public : 
      Node *   connect ( Node *  root )   { 
