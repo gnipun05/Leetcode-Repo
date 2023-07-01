@@ -1,0 +1,25 @@
+class   Solution   { 
+ public : 
+      int  answer = INT_MAX ; 
+      void   solve ( vector < int >   & arr ,  vector < int >   & cookies ,   int  idx ) { 
+          if ( idx == cookies . size ( ) ) { 
+              int  temp = 0 ; 
+              for ( int  i : arr ) { 
+                 temp = max ( temp ,  i ) ; 
+              } 
+             answer = min ( answer ,  temp ) ; 
+              return   ; 
+          } 
+          for ( int  i = 0 ;  i < arr . size ( ) ;  i ++ ) { 
+             arr [ i ] += cookies [ idx ] ; 
+              solve ( arr ,  cookies ,  idx + 1 ) ; 
+             arr [ i ] -= cookies [ idx ] ; 
+          } 
+      } 
+      int   distributeCookies ( vector < int > &  cookies ,   int  k )   { 
+          int  n = cookies . size ( ) ; 
+         vector < int >   arr ( k ,   0 ) ; 
+          solve ( arr ,  cookies ,   0 ) ; 
+          return  answer ; 
+      } 
+ } ;
