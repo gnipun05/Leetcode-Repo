@@ -1,0 +1,24 @@
+class   Solution   { 
+ public : 
+      int  dp [ 12 ] [ 1024 ] [ 2 ] [ 2 ] ; 
+      int   solve ( string  & str ,   int  mask ,   int  leadingZeros ,   int  tight ,   int  i ) { 
+          if ( i == str . size ( ) ) 
+              return   1 ; 
+          if ( dp [ i ] [ mask ] [ leadingZeros ] [ tight ] != - 1 ) 
+              return  dp [ i ] [ mask ] [ leadingZeros ] [ tight ] ; 
+          int  ub  =  tight  ?  str [ i ] - '0'   :   9 ; 
+          int  ans = 0 ; 
+          for ( int  digit = 0 ;  digit <= ub ;  digit ++ ) { 
+              if ( digit == 0   &&  leadingZeros ) 
+                 ans += solve ( str ,   0 ,   1 ,   0 ,  i + 1 ) ; 
+              else   if ( ( mask  &   ( 1 << digit ) ) == 0 ) 
+                 ans += solve ( str ,  mask  |   ( 1 << digit ) ,   0 ,  tight  &&   ( digit == ub ) ,  i + 1 ) ; 
+          } 
+          return  dp [ i ] [ mask ] [ leadingZeros ] [ tight ] = ans ; 
+      } 
+      int   numDupDigitsAtMostN ( int  n )   { 
+         string str = to_string ( n ) ; 
+          memset ( dp ,   - 1 ,   sizeof ( dp ) ) ; 
+          return  n - ( solve ( str ,   0 ,   1 ,   1 ,   0 ) - 1 ) ;   // solve returns 0 as well, so we subtract one from it 
+      } 
+ } ;
