@@ -1,0 +1,24 @@
+class   Solution   { 
+ public : 
+      bool   PredictTheWinner ( vector < int > &  arr )   { 
+          int  n = arr . size ( ) ; 
+          int  dp [ n ] [ n ] ; 
+          for ( int  gaps = 0 ;  gaps < n ;  gaps ++ ) { 
+              int  i = 0 ; 
+              for ( int  j = gaps ;  j < n ;  j ++ ) { 
+                  int  x = 0 ,  y = 0 ,  z = 0 ; 
+                  if ( gaps >= 2 ) { 
+                     x = dp [ i + 2 ] [ j ] ; 
+                     y = dp [ i + 1 ] [ j - 1 ] ; 
+                     z = dp [ i ] [ j - 2 ] ; 
+                  } 
+                 dp [ i ] [ j ] = max ( arr [ i ] + min ( x , y ) ,  arr [ j ] + min ( y , z ) ) ; 
+                 i ++ ; 
+              } 
+          } 
+          int  sum  =   accumulate ( arr . begin ( ) ,  arr . end ( ) ,   0 ) ; 
+          int  a = dp [ 0 ] [ n - 1 ] ; 
+          int  b = sum - a ; 
+          return  a >= b ; 
+      } 
+ } ;
