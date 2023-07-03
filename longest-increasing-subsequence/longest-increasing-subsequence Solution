@@ -1,0 +1,22 @@
+// solution with nlog(n) time complexity 
+ // to find lnds, replace lower_bound by upper_bound 
+ class   Solution   { 
+ public : 
+      int   lengthOfLIS ( vector < int > &  nums )   { 
+          int  n = nums . size ( ) ; 
+         vector < int >   dp ( n ,   1 ) ; 
+          int  omax = 1 ; 
+          for ( int  i = 1 ;  i < n ;  i ++ ) { 
+              int  mx = 1 ; 
+              for ( int  j = 0 ;  j < i ;  j ++ ) { 
+                  if ( nums [ i ] > nums [ j ] ) { 
+                      if ( mx < dp [ j ] + 1 ) 
+                         mx = dp [ j ] + 1 ; 
+                  } 
+              } 
+             dp [ i ] = mx ; 
+             omax = max ( omax ,  mx ) ; 
+          } 
+          return  omax ; 
+      } 
+ } ;
