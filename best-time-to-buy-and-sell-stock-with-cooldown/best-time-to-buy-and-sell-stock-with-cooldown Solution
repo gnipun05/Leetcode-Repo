@@ -1,0 +1,16 @@
+class   Solution   { 
+ public : 
+      int   maxProfit ( vector < int > &  prices )   { 
+          int  n = prices . size ( ) ; 
+         vector < int >   dp ( n ,   0 ) ; 
+          int  maxDif =   - prices [ 0 ] ; 
+          for ( int  i = 1 ;  i < n ;  i ++ ) { 
+             dp [ i ] = max ( dp [ i - 1 ] ,  maxDif + prices [ i ] ) ; 
+              if ( i == 1 ) 
+                 maxDif = max ( maxDif ,   - prices [ 1 ] ) ; 
+              else 
+                 maxDif = max ( maxDif ,  dp [ i - 2 ] - prices [ i ] ) ; 
+          } 
+          return  dp [ n - 1 ] ; 
+      } 
+ } ;
