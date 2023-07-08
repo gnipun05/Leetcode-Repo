@@ -1,0 +1,33 @@
+// solution with using dp 
+ class   Solution   { 
+ public : 
+      int  dp [ 32 ] [ 2 ] [ 2 ] ; 
+     string  convert ( int  n ) { 
+         string answer = "" ; 
+          while ( n > 0 ) { 
+             answer . push_back ( '0' + ( n % 2 ) ) ; 
+             n /= 2 ;             
+          } 
+          reverse ( answer . begin ( ) ,  answer . end ( ) ) ; 
+          return  answer ; 
+      } 
+      int   solve ( string  & str ,   int  idx ,   bool  tight ,   int  prev ) { 
+          if ( str . size ( ) == idx ) 
+              return   1 ; 
+          if ( dp [ idx ] [ tight ] [ prev ] != - 1 ) 
+              return  dp [ idx ] [ tight ] [ prev ] ; 
+          int  ub = tight ? str [ idx ] - '0' : 1 ; 
+          int  answer = 0 ; 
+          for ( int  i = 0 ;  i <= ub ;  i ++ ) { 
+              if ( i == 1   &&  prev == 1 ) 
+                  continue ; 
+             answer += solve ( str ,  idx + 1 ,  tight  &&  ub == i ,  i ) ; 
+          } 
+          return  dp [ idx ] [ tight ] [ prev ] = answer ; 
+      } 
+      int   findIntegers ( int  n )   { 
+         string str = convert ( n ) ; 
+          memset ( dp ,   - 1 ,   sizeof ( dp ) ) ; 
+          return   solve ( str ,   0 ,   true ,   0 ) ; 
+      } 
+ } ;
