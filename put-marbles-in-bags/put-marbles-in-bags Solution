@@ -1,0 +1,22 @@
+// value of 1st and last number will be in both mins and maxs 
+ // when we subtract max and mins, they will eventually cancel each other 
+ // so we dont include it 
+ // full explaination: https://leetcode.com/problems/put-marbles-in-bags/solutions/3111642/simple-c-solution-using-sort-idea-explained/ 
+ class   Solution   { 
+ public : 
+      long   long   putMarbles ( vector < int > &  weights ,   int  k )   { 
+          int  n  =  weights . size ( ) ; 
+          if   ( k  ==   1   ||  n  ==  k )   return   0 ; 
+         vector < int >  candidates ; 
+          for   ( int  i  =   0 ;  i  <  n - 1 ;  i ++ ) { 
+             candidates . push_back ( weights [ i ]   +  weights [ i + 1 ] ) ; 
+          } 
+          sort ( candidates . begin ( ) ,  candidates . end ( ) ) ; 
+          long   long  mins  =   0 ,  maxs  =   0 ; 
+          for   ( int  i  =   0 ;  i  <  k - 1 ;  i ++ ) { 
+             mins  +=  candidates [ i ] ; 
+             maxs  +=  candidates [ n - 2 - i ] ; 
+          } 
+          return  maxs  -  mins ; 
+      } 
+ } ;
