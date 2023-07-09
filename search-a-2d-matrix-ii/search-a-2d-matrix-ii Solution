@@ -1,0 +1,16 @@
+class   Solution   { 
+ public : 
+      bool   searchMatrix ( vector < vector < int >> &  matrix ,   int  target )   { 
+          int  m = matrix . size ( ) ,  n = matrix [ 0 ] . size ( ) ; 
+          int  ptr = n ,  k = n ; 
+          for ( int  i = 0 ;  i < m ;  i ++ ) { 
+             ptr = lower_bound ( matrix [ i ] . begin ( ) ,  matrix [ i ] . begin ( ) + k ,  target ) - matrix [ i ] . begin ( ) ; 
+              if ( ptr != n  &&  matrix [ i ] [ ptr ] == target ) 
+                  return   true ; 
+              if ( ptr == k ) 
+                  continue ; 
+             k = ptr - 1 ; 
+          } 
+          return   false ; 
+      } 
+ } ;
