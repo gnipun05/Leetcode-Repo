@@ -1,0 +1,28 @@
+class   Solution   { 
+ public : 
+      int  dp [ 10 ] [ 2 ] [ 2 ] ; 
+      int   solve ( string  & s ,  vector < int > &  digits ,   int  i ,   bool  leadingZeros ,   bool  tight ) { 
+          if ( i == s . size ( ) ) 
+              return   1 ; 
+          if ( dp [ i ] [ tight ] [ leadingZeros ] != - 1 ) 
+              return  dp [ i ] [ tight ] [ leadingZeros ] ; 
+          int  ub = tight ? s [ i ] - '0' : 9 ; 
+          int  answer = 0 ; 
+          if ( leadingZeros ) { 
+             answer += solve ( s ,  digits ,  i + 1 ,   true ,   false ) ; 
+          } 
+          for ( int  num : digits ) { 
+              if ( num <= ub ) 
+                 answer += solve ( s ,  digits ,  i + 1 ,   false ,  tight  &&  num == ub ) ; 
+          } 
+          return  dp [ i ] [ tight ] [ leadingZeros ] = answer ; 
+      } 
+      int   atMostNGivenDigitSet ( vector < string > &  digits ,   int  n )   { 
+         string str = to_string ( n ) ; 
+          memset ( dp ,   - 1 ,   sizeof ( dp ) ) ; 
+         vector < int >  dig ; 
+          for ( string s : digits ) 
+             dig . push_back ( stoi ( s ) ) ; 
+          return   solve ( str ,  dig ,   0 ,   true ,   true ) - 1 ; 
+      } 
+ } ;
