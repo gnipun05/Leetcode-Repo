@@ -1,0 +1,43 @@
+class   Solution   { 
+ public : 
+     unordered_map < string ,  vector < int >>  dp ; 
+     vector < int >   solve ( string &  str ,   int  i ,   int  j ) { 
+          if ( i > j ) 
+              return   { } ; 
+         string key = to_string ( i ) + " " + to_string ( j ) ; 
+          if ( dp . count ( key ) ) 
+              return  dp [ key ] ; 
+          if ( i == j ) 
+              return   { str [ i ] - '0' } ; 
+          if ( i + 1 == j ) 
+              return   { stoi ( str . substr ( i ,   2 ) ) } ; 
+         vector < int >  answer ; 
+          for ( int  idx = i + 1 ;  idx < j ;  idx ++ ) { 
+              char  c = str [ idx ] ; 
+              if ( c == '+'   ||  c == '-'   ||  c == '*' ) { 
+                 vector < int >  a = solve ( str ,  i ,  idx - 1 ) ; 
+                 vector < int >  b = solve ( str ,  idx + 1 ,  j ) ; 
+                  for ( int  num1 : a ) { 
+                      for ( int  num2 : b ) { 
+                          int  temp = 0 ; 
+                          switch ( c ) { 
+                              case   '+' : 
+                                 temp = num1 + num2 ; 
+                                  break ; 
+                              case   '-' : 
+                                 temp = num1 - num2 ; 
+                                  break ; 
+                              default : 
+                                 temp = num1 * num2 ; 
+                          } 
+                         answer . push_back ( temp ) ; 
+                      } 
+                  } 
+              } 
+          } 
+          return  dp [ key ] = answer ; 
+      } 
+     vector < int >   diffWaysToCompute ( string expression )   { 
+          return   solve ( expression ,   0 ,  expression . size ( ) - 1 ) ; 
+      } 
+ } ;
