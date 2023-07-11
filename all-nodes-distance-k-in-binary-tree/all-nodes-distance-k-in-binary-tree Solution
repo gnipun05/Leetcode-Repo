@@ -1,0 +1,52 @@
+/**
+  * Definition for a binary tree node.
+  * struct TreeNode {
+  *     int val;
+  *     TreeNode *left;
+  *     TreeNode *right;
+  *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+  * };
+  */ 
+ class   Solution   { 
+ public : 
+      void   dfs ( TreeNode *  root ,  unordered_map < int ,  vector < int >>   & m ) { 
+          if ( root == NULL ) 
+              return ; 
+          if ( root -> left ) { 
+             m [ root -> left -> val ] . push_back ( root -> val ) ; 
+             m [ root -> val ] . push_back ( root -> left -> val ) ; 
+              dfs ( root -> left ,  m ) ; 
+          } 
+          if ( root -> right ) { 
+             m [ root -> right -> val ] . push_back ( root -> val ) ; 
+             m [ root -> val ] . push_back ( root -> right -> val ) ; 
+              dfs ( root -> right ,  m ) ; 
+          } 
+      } 
+     vector < int >   bfs ( int  target ,  unordered_map < int ,  vector < int >>   & m ,   int  k ) { 
+         vector < int >  answer ; 
+         unordered_set < int >  s ; 
+         queue < int >  q ; 
+         q . push ( target ) ; 
+          while ( q . empty ( ) == false   &&  k > 0 ) { 
+             k -- ; 
+              int  size = q . size ( ) ; 
+              for ( int  i = 0 ;  i < size ;  i ++ ) { 
+                  int  u = q . front ( ) ;  q . pop ( ) ; 
+                 s . insert ( u ) ; 
+                  for ( int  node : m [ u ] ) { 
+                      if ( s . count ( node ) == 0 ) 
+                         q . push ( node ) ; 
+                  } 
+                  if ( k == 0 ) 
+                     answer . push_back ( u ) ; 
+              } 
+          } 
+          return  answer ; 
+      } 
+     vector < int >   distanceK ( TreeNode *  root ,  TreeNode *  target ,   int  k )   { 
+         unordered_map < int ,  vector < int >>  m ; 
+          dfs ( root ,  m ) ; 
+          return   bfs ( target -> val ,  m ,  k + 1 ) ; 
+      } 
+ } ;
