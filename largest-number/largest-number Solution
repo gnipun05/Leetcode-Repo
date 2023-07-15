@@ -1,0 +1,18 @@
+class   Solution   { 
+ public : 
+      static   bool   comp ( string  & a ,  string  & b ) { 
+          return  a + b > b + a ;   // this is the main line of this code 
+      } 
+     string  largestNumber ( vector < int > &  nums )   { 
+         vector < string >  words ; 
+          for ( int  i : nums ) 
+             words . push_back ( to_string ( i ) ) ; 
+          sort ( words . begin ( ) ,  words . end ( ) ,  comp ) ; 
+         string ans = "" ; 
+          while ( words [ 0 ] == "0"   &&  words . size ( ) > 1 ) 
+             words . erase ( words . begin ( ) ) ;   // clear the element present at index 0 
+          for ( string i : words ) 
+             ans += i ; 
+          return  ans ; 
+      } 
+ } ;
