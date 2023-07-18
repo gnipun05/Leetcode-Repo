@@ -22,7 +22,7 @@ class   LRUCache   {
               return ; 
           } 
           if ( m . size ( ) == size ) { 
-              int  delkey = l . back ( ) . first ; 
+              auto  delkey = l . back ( ) . first ; 
              m . erase ( delkey ) ; 
              l . pop_back ( ) ; 
           } 
