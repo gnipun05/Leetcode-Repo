@@ -16,23 +16,25 @@
  };
  */ 
  
- // this is a general solution, i.e. it will work for non complete trees as well 
- // refer to previously accepted solution to see solution for this particular scenario 
  class   Solution   { 
  public : 
      Node *   connect ( Node *  root )   { 
-         Node *  curr = root ,   * prev ; 
-          while ( curr != NULL ) { 
-             prev = curr ; 
-              while ( curr  &&  curr -> left ) { 
-                 curr -> left -> next = curr -> right ; 
-                 
-                  if ( curr -> next ) 
-                     curr -> right -> next = curr -> next -> left ; 
-             
-                 curr = curr -> next ;     
+          if ( root == NULL    ||  root -> left == NULL ) 
+              return  root ; 
+         queue < Node * >  q ; 
+         Node *  upcoming = NULL ; 
+         q . push ( root ) ; 
+         q . push ( NULL ) ; 
+          while ( q . size ( ) >= 2 ) { 
+             Node *  present = q . front ( ) ;  q . pop ( ) ; 
+              if ( present == NULL ) { 
+                 q . push ( NULL ) ; 
+                  continue ; 
               } 
-             curr = prev -> left ; 
+             Node *  upcoming = q . front ( ) ; 
+             present -> next = upcoming ; 
+              if ( present -> left != NULL )      q . push ( present -> left ) ; 
+              if ( present -> right != NULL )     q . push ( present -> right ) ; 
           } 
           return  root ; 
       } 
