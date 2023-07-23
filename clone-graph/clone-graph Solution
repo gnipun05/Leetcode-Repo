@@ -19,20 +19,23 @@
  };
  */ 
  
- // Resubmitting because of it being Daily Leetcode Challenge 
  class   Solution   { 
  public : 
      Node *   cloneGraph ( Node *  node )   { 
-          if ( node == NULL )    return  node ; 
-         unordered_map < int   , Node * >  m ; 
-          return   dfs ( m ,  node ) ; 
+          if ( node == NULL ) 
+              return   NULL ; 
+         unordered_map < int ,  Node * >  m ; 
+          return   dfs ( node ,  m ) ; 
       } 
-     Node *   dfs ( unordered_map < int ,  Node * >   & m ,  Node *  node ) { 
-          if ( m . find ( node -> val ) != m . end ( ) )      return  m [ node -> val ] ; 
-         Node *  copy  =   new   Node ( node -> val ) ; 
-         m [ node -> val ] = copy ; 
-          for ( Node *  neighbor : node -> neighbors ) 
-             copy -> neighbors . push_back ( dfs ( m , neighbor ) ) ; 
-          return  copy ; 
+     Node *   dfs ( Node *  node ,  unordered_map < int ,  Node * >   & m ) { 
+          int  val = node -> val ; 
+          if ( m . count ( val ) ) 
+              return  m [ val ] ; 
+         Node  * myNode  =   new   Node ( node -> val ) ; 
+         m [ val ] = myNode ; 
+          for ( Node *  n : node -> neighbors ) { 
+             myNode -> neighbors . push_back ( dfs ( n ,  m ) ) ; 
+          } 
+          return  myNode ; 
       } 
  } ;
