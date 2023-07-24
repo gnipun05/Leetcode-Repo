@@ -1,0 +1,23 @@
+// revised on 8th Sept, 2022 
+ class   Solution   { 
+ public : 
+      int   largestRectangleArea ( vector < int > &  heights )   { 
+          int  res = 0 ; 
+          int  n = heights . size ( ) ; 
+         stack < int > s ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              while ( s . empty ( ) == false   &&  heights [ i ] < heights [ s . top ( ) ] ) { 
+                  int  temp = s . top ( ) ; s . pop ( ) ; 
+                  int  curr = heights [ temp ] * ( ( s . empty ( ) ) ? i : ( i - s . top ( ) - 1 ) ) ; 
+                 res = max ( res ,  curr ) ; 
+              } 
+             s . push ( i ) ; 
+          } 
+          while ( s . empty ( ) == false ) { 
+              int  temp = s . top ( ) ; s . pop ( ) ; 
+              int  curr = heights [ temp ] * ( ( s . empty ( ) ) ? n : ( n - s . top ( ) - 1 ) ) ; 
+             res = max ( res ,  curr ) ; 
+          } 
+          return  res ; 
+      } 
+ } ;
