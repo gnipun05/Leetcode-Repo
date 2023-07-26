@@ -1,0 +1,92 @@
+// Resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+     vector < vector < int >>   permuteUnique ( vector < int > &  nums )   { 
+         vector < vector < int >>  answer ; 
+          sort ( nums . begin ( ) ,  nums . end ( ) ) ; 
+          dfs ( nums ,  answer ,   0 ) ; 
+          return  answer ; 
+      } 
+      void   dfs ( vector < int >  nums ,  vector < vector < int >>   & answer ,   int  pos ) { 
+          if ( pos == nums . size ( ) - 1 ) { 
+             answer . push_back ( nums ) ; 
+              return ; 
+          } 
+          for ( int  i = pos ;  i < nums . size ( ) ;  i ++ ) { 
+              if ( i != pos  &&  nums [ i ] == nums [ pos ] ) 
+                  continue ; 
+              swap ( nums [ i ] ,  nums [ pos ] ) ; 
+              dfs ( nums ,  answer ,  pos + 1 ) ; 
+          } 
+      } 
+ } ; 
+ // class Solution { 
+ // public: 
+ 
+ //     void permuteUniqueHelper(int i, vector<int> nums, vector<vector<int> >& result) { 
+ //         if (i == nums.size()) {  
+ //             result.emplace_back(nums); 
+ //             return; 
+ //         } 
+ //         sort(nums.begin()+i, nums.end()); 
+ //         for (int j = i; j < nums.size(); ++j) { 
+ //             if (j > i && nums[j-1] == nums[j]) { 
+ //                 continue;  
+ //             } 
+ //             swap(nums[i], nums[j]); 
+ //             permuteUniqueHelper(i + 1, nums, result); 
+ //             swap(nums[i], nums[j]); 
+ //         } 
+ //     } 
+     
+ //     vector<vector<int>> permuteUnique(vector<int>& nums) { 
+ //         vector<vector<int> > result; 
+ //         // sort(nums.begin(), nums.end()); 
+ //         permuteUniqueHelper(0, nums, result); 
+ //         return result; 
+ //     } 
+ // }; 
+ // class Solution { 
+ // public: 
+ //     void recursion(vector<int> num, int i, int j, vector<vector<int> > &res) { 
+ //         if (i == j-1) { 
+ //             res.push_back(num); 
+ //             return; 
+ //         } 
+ //         for (int k = i; k < j; k++) { 
+ //             if (i != k && num[i] == num[k]) continue; 
+ //             swap(num[i], num[k]); 
+ //             recursion(num, i+1, j, res); 
+ //         } 
+ //     } 
+ //     vector<vector<int> > permuteUnique(vector<int> &num) { 
+ //         sort(num.begin(), num.end()); 
+ //         vector<vector<int> >res; 
+ //         recursion(num, 0, num.size(), res); 
+ //         return res; 
+ //     } 
+ // }; 
+ // class Solution { 
+ // public: 
+ //     vector<vector<int>> permuteUnique(vector<int> &nums) { 
+ //         vector<vector<int>> answer; 
+ //         sort(nums.begin(), nums.end()); 
+ //         dfs(nums, answer, 0); 
+ //         return answer; 
+ //     } 
+ //     void dfs(vector<int> nums, vector<vector<int>> &answer, int pos){ 
+ //         if(pos==nums.size()-1){ 
+ //             answer.push_back(nums); 
+ //             return; 
+ //         } 
+ //         // sort(nums.begin()+pos, nums.end()); 
+ //         for(int i=pos; i<nums.size(); i++){ 
+ //             if(i!=pos && (nums[i]==nums[pos] || nums[i]==nums[i-1])){ 
+ //                 // cout<<1<<" "; 
+ //                 continue; 
+ //             } 
+ //             swap(nums[i], nums[pos]); 
+ //             dfs(nums, answer, pos+1); 
+ //         } 
+ //     } 
+ // };
