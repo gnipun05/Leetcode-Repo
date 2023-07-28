@@ -1,24 +1,26 @@
 class   Solution   { 
  public : 
-      bool   PredictTheWinner ( vector < int > &  arr )   { 
-          int  n = arr . size ( ) ; 
-          int  dp [ n ] [ n ] ; 
-          for ( int  gaps = 0 ;  gaps < n ;  gaps ++ ) { 
-              int  i = 0 ; 
-              for ( int  j = gaps ;  j < n ;  j ++ ) { 
-                  int  x = 0 ,  y = 0 ,  z = 0 ; 
-                  if ( gaps >= 2 ) { 
-                     x = dp [ i + 2 ] [ j ] ; 
-                     y = dp [ i + 1 ] [ j - 1 ] ; 
-                     z = dp [ i ] [ j - 2 ] ; 
-                  } 
-                 dp [ i ] [ j ] = max ( arr [ i ] + min ( x , y ) ,  arr [ j ] + min ( y , z ) ) ; 
-                 i ++ ; 
-              } 
+     vector < vector < int >>  dp ; 
+      int   solve ( vector < int >   & nums , int  i ,   int  j ) { 
+          if ( i > j ) 
+              return   - 1 ; 
+          if ( dp [ i ] [ j ] != - 1 ) 
+              return  dp [ i ] [ j ] ; 
+          int  x = 0 ,  y = 0 ,  z = 0 ; 
+          if ( j - i >= 2 ) { 
+             x = solve ( nums ,  i ,  j - 2 ) ; 
+             y = solve ( nums ,  i + 1 ,  j - 1 ) ; 
+             z = solve ( nums ,  i + 2 ,  j ) ; 
           } 
-          int  sum  =   accumulate ( arr . begin ( ) ,  arr . end ( ) ,   0 ) ; 
-          int  a = dp [ 0 ] [ n - 1 ] ; 
-          int  b = sum - a ; 
-          return  a >= b ; 
+         dp [ i ] [ j ] = max ( nums [ i ]   +   min ( z ,  y ) ,  nums [ j ]   +   min ( x , y ) ) ; 
+          return  dp [ i ] [ j ] ; 
+      } 
+      bool   PredictTheWinner ( vector < int > &  nums )   { 
+          int  n = nums . size ( ) ; 
+         dp . resize ( n + 1 ,   vector < int >   ( n + 1 ,   - 1 ) ) ; 
+          int  Player1 = solve ( nums ,   0 ,  n - 1 ) ; 
+          int  sum = accumulate ( nums . begin ( ) ,  nums . end ( ) ,   0 ) ; 
+          int  Player2 = sum - Player1 ; 
+          return  Player1 >= Player2 ; 
       } 
  } ;
