@@ -1,0 +1,32 @@
+class   Solution   { 
+ public : 
+      int   ladderLength ( string beginWord ,  string endWord ,  vector < string > &  wordList )   { 
+         unordered_set < string >  s ; 
+          for ( string i : wordList ) 
+             s . insert ( i ) ; 
+          int  count = 0 ; 
+         queue < string >  q ; 
+         q . push ( beginWord ) ; 
+          while ( ! q . empty ( ) ) { 
+             count ++ ; 
+              int  n = q . size ( ) ; 
+              for ( int  i = 0 ;  i < n ;  i ++ ) { 
+                 string word = q . front ( ) ; q . pop ( ) ; 
+                  if ( word == endWord ) 
+                      return  count ; 
+                 s . erase ( word ) ; 
+                  for ( int  j = 0 ;  j < word . size ( ) ;  j ++ ) { 
+                      char  store = word [ j ] ; 
+                      for ( int  k = 0 ;  k < 26 ;  k ++ ) { 
+                         word [ j ] = 'a' + k ; 
+                          if ( s . find ( word ) != s . end ( ) ) { 
+                             q . push ( word ) ; 
+                          } 
+                      } 
+                     word [ j ] = store ; 
+                  } 
+              } 
+          } 
+          return   0 ;   // this means endWord was never found 
+      } 
+ } ;
