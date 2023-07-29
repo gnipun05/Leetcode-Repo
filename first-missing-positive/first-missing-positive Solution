@@ -1,4 +1,5 @@
 // O(n) time and O(1) space 
+ // a variation: https://practice.geeksforgeeks.org/problems/find-missing-and-repeating2512/1 
  class   Solution   { 
  public : 
       int   firstMissingPositive ( vector < int > &  nums )   { 
