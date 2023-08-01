@@ -1,0 +1,43 @@
+class   Solution   { 
+ public : 
+      int   largestIsland ( vector < vector < int >> &  grid )   { 
+          int  n = grid . size ( ) ,  answer = 0 ,  islandId = 2 ; 
+         unordered_map < int   , int > m ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              for ( int  j = 0 ;  j < n ;  j ++ ) { 
+                  if ( grid [ i ] [ j ] == 1 ) { 
+                      int  area = calArea ( grid ,  i ,  j ,  n ,  islandId ) ; 
+                     answer = max ( answer ,  area ) ; 
+                     m [ islandId ++ ] = area ; 
+                  } 
+              } 
+          } 
+         vector < vector < int >>  directions { { 1 , 0 } ,   { - 1 , 0 } ,   { 0 , 1 } ,   { 0 , - 1 } } ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              for ( int  j = 0 ;  j < n ;  j ++ ) { 
+                  if ( grid [ i ] [ j ] == 0 ) { 
+                     unordered_set < int >  s ; 
+                      for ( vector < int >  direction  :  directions ) { 
+                          int  x = direction [ 0 ] + i ,  y = direction [ 1 ] + j ; 
+                          if ( x >= 0   &&  y >= 0   &&  x < n  &&  y < n  &&  grid [ x ] [ y ] != 0 ) 
+                             s . insert ( grid [ x ] [ y ] ) ; 
+                      } 
+                      int  sum = 1 ; 
+                      for ( int  i : s ) 
+                         sum += m [ i ] ; 
+                     answer = max ( answer ,  sum ) ; 
+                  } 
+              } 
+          } 
+          return  answer ; 
+      } 
+      int   calArea ( vector < vector < int >> &  grid ,   int  i ,   int  j ,   int  n ,   int  islandId ) { 
+          if ( i < 0   ||  i >= n  ||  j < 0   ||  j >= n  ||  grid [ i ] [ j ] != 1 )   return   0 ; 
+         grid [ i ] [ j ] = islandId ; 
+          int  up = calArea ( grid ,  i - 1 ,  j ,  n ,  islandId ) ; 
+          int  down = calArea ( grid ,  i + 1 ,  j ,  n ,  islandId ) ; 
+          int  left = calArea ( grid ,  i ,  j - 1 ,  n ,  islandId ) ; 
+          int  right = calArea ( grid ,  i ,  j + 1 ,  n ,  islandId ) ; 
+          return  left + right + up + down + 1 ; 
+      } 
+ } ;
