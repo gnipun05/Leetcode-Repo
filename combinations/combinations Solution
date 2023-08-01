@@ -1,0 +1,21 @@
+class   Solution   { 
+ public : 
+     vector < vector < int >>  answer ; 
+     vector < vector < int >>   combine ( int  n ,   int  k )   { 
+          helper ( 1 ,  n ,  k ,   { } ) ; 
+          return  answer ; 
+      } 
+      void   helper ( int  j ,   int  n ,   int  k ,  vector < int >  temp ) { 
+          if ( k == 0 ) { 
+             answer . push_back ( temp ) ; 
+              return ; 
+          } 
+          if ( j > n ) 
+              return ; 
+          for ( int  i = j ;  i <= n - k + 1 ;  i ++ ) { 
+             temp . push_back ( i ) ; 
+              helper ( i + 1 ,  n ,  k - 1 ,  temp ) ; 
+             temp . pop_back ( ) ; 
+          } 
+      } 
+ } ;
