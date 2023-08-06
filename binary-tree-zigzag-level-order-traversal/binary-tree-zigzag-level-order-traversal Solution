@@ -12,21 +12,25 @@
  class   Solution   { 
  public : 
      vector < vector < int >>   zigzagLevelOrder ( TreeNode *  root )   { 
+          if ( root == NULL ) 
+              return   { } ; 
          vector < vector < int >>  answer ; 
-          if ( root == NULL )    return  answer ; 
          queue < TreeNode * > q ; 
          q . push ( root ) ; 
-          while ( ! q . empty ( ) ) { 
-             vector < int >  temp ; 
-              int  size = q . size ( ) ; 
-              for ( int  i = 0 ;  i < size ;  i ++ ) { 
-                 TreeNode *  curr = q . front ( ) ;  q . pop ( ) ; 
-                 temp . push_back ( curr -> val ) ; 
-                  if ( curr -> left )   q . push ( curr -> left ) ; 
-                  if ( curr -> right )  q . push ( curr -> right ) ; 
+          int  count = - 1 ; 
+          while ( q . empty ( ) == false ) { 
+              int  n = q . size ( ) ; 
+             count ++ ; 
+             vector < int >   temp ( n ) ; 
+              for ( int  i = 0 ;  i < n ;  i ++ ) { 
+                 TreeNode *  u = q . front ( ) ;  q . pop ( ) ; 
+                  int  index = ( answer . size ( ) % 2 ) ? n - 1 - i : i ; 
+                 temp [ index ] = u -> val ; 
+                  if ( u -> left ) 
+                     q . push ( u -> left ) ; 
+                  if ( u -> right ) 
+                     q . push ( u -> right ) ; 
               } 
-              if ( answer . size ( ) % 2 ) 
-                  reverse ( temp . begin ( ) ,  temp . end ( ) ) ; 
              answer . push_back ( temp ) ; 
           } 
           return  answer ; 
