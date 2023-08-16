@@ -1,19 +1,18 @@
-// first accepted solution is done usting a priority queue (O(logn)) 
- // this a deque solution (O(n)) 
- class   Solution   { 
+class   Solution   { 
  public : 
      vector < int >   maxSlidingWindow ( vector < int > &  nums ,   int  k )   { 
-          int  n = nums . size ( ) ; 
-         deque < int >  dq ; 
+         priority_queue < pair < int , int >>  pq ; 
+          for ( int  i = 0 ;  i < k - 1 ;  i ++ ) { 
+             pq . push ( { nums [ i ] ,  i } ) ; 
+          } 
+          int  l = 0 ,  r = k - 1 ; 
          vector < int >  answer ; 
-          for ( int  i = 0 ;  i < nums . size ( ) ;  i ++ ) { 
-              while ( dq . empty ( ) == false   &&  dq . front ( ) <= i - k ) 
-                 dq . pop_front ( ) ; 
-              while ( dq . empty ( ) == false   &&  nums [ dq . back ( ) ] < nums [ i ] ) 
-                 dq . pop_back ( ) ; 
-             dq . push_back ( i ) ; 
-              if ( i >= k - 1 ) 
-                 answer . push_back ( nums [ dq . front ( ) ] ) ; 
+          while ( r < nums . size ( ) ) { 
+             pq . push ( { nums [ r ] ,  r } ) ; 
+              while ( pq . top ( ) . second < l ) 
+                 pq . pop ( ) ; 
+             answer . push_back ( pq . top ( ) . first ) ; 
+             r ++ ;  l ++ ; 
           } 
           return  answer ; 
       } 
