@@ -1,4 +1,4 @@
-// previous accepted solution is done usting a priority queue (O(logn)) 
+// first accepted solution is done usting a priority queue (O(logn)) 
  // this a deque solution (O(n)) 
  class   Solution   { 
  public : 
@@ -7,12 +7,12 @@
          deque < int >  dq ; 
          vector < int >  answer ; 
           for ( int  i = 0 ;  i < nums . size ( ) ;  i ++ ) { 
-              if ( dq . size ( ) > 0   &&  dq . front ( ) == i - k ) 
+              while ( dq . empty ( ) == false   &&  dq . front ( ) <= i - k ) 
                  dq . pop_front ( ) ; 
-              while ( dq . size ( ) > 0   &&  nums [ dq . back ( ) ] < nums [ i ] ) 
+              while ( dq . empty ( ) == false   &&  nums [ dq . back ( ) ] < nums [ i ] ) 
                  dq . pop_back ( ) ; 
              dq . push_back ( i ) ; 
-              if ( i - ( k - 1 ) >= 0 ) 
+              if ( i >= k - 1 ) 
                  answer . push_back ( nums [ dq . front ( ) ] ) ; 
           } 
           return  answer ; 
