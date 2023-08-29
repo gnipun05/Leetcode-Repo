@@ -1,0 +1,30 @@
+class   Solution   { 
+ public : 
+      int   bestClosingTime ( string s )   { 
+          int  n = s . size ( ) ; 
+         vector < int >   pre ( n + 1 ,   0 ) ; 
+          int  sum = 0 ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+              if ( s [ i ] == 'Y' ) 
+                 sum ++ ; 
+              else 
+                 sum -- ; 
+             pre [ i + 1 ] = sum ; 
+          } 
+         map < int ,   int >  m ; 
+          for ( int  i = 0 ;  i < n + 1 ;  i ++ ) { 
+              if ( m . find ( pre [ i ] ) == m . end ( ) ) { 
+                 m [ pre [ i ] ] = i ; 
+              } 
+          } 
+          int  answer = 0 ; 
+          int  temp = 0 ; 
+          for ( auto  x : m ) { 
+              if ( temp < x . first ) { 
+                 temp = x . first ; 
+                 answer = x . second ; 
+              } 
+          } 
+          return  answer ; 
+      } 
+ } ;
