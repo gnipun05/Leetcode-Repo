@@ -1,21 +1,17 @@
-class   Solution   { 
+// 2D DP array 
+ class   Solution   { 
  public : 
       int   solve ( string s ,  vector < string > &  d ,   int  i ,   int  j ,  vector < vector < int >> &  dp ) { 
           if ( s . size ( ) == 0 ) 
               return   0 ; 
           if ( dp [ i ] [ j ] != 100 ) 
               return  dp [ i ] [ j ] ; 
-          // dp[i][j]=j-i+1; 
-          bool  flag = false ; 
+         dp [ i ] [ j ] = j - i + 1 ; 
           for ( string str : d ) { 
              size_t f = s . find ( str ) ; 
               if ( f != string :: npos ) { 
-                 flag = true ; 
                  dp [ i ] [ j ] = min ( dp [ i ] [ j ] ,   solve ( s . substr ( 0 ,  f ) ,  d ,  i ,  i + f - 1 ,  dp )   +   solve ( s . substr ( f + str . size ( ) ) ,  d ,  i + f + str . size ( ) ,  j ,  dp ) ) ; 
               } 
-          } 
-          if ( flag == false ) { 
-              return  dp [ i ] [ j ] = s . size ( ) ; 
           } 
           return  dp [ i ] [ j ] ; 
       } 
