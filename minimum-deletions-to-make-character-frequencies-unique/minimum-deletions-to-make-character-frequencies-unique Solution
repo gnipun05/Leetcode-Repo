@@ -1,0 +1,19 @@
+class   Solution   { 
+ public : 
+      int   minDeletions ( string str )   { 
+         unordered_set < int >  s ; 
+          int  arr [ 26 ] = { 0 } ; 
+          for ( char   & c : str ) 
+             arr [ c - 'a' ] ++ ; 
+          int  answer = 0 ; 
+          for ( int   & i : arr ) { 
+              while ( i > 0   &&  s . find ( i ) != s . end ( ) ) { 
+                 i -- ; 
+                 answer ++ ; 
+              } 
+              if ( i > 0 ) 
+                 s . insert ( i ) ; 
+          } 
+          return  answer ; 
+      } 
+ } ;
