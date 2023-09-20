@@ -1,0 +1,26 @@
+class   Solution   { 
+ public : 
+      int   minOperations ( vector < int > &  nums ,   int  target )   { 
+         unordered_map < int ,   int >  m ; 
+         unordered_map < int ,   int >  m2 ; 
+          int  sum = 0 ,  n = nums . size ( ) ; 
+          for ( int  i = 0 ;  i < n ;  i ++ ) { 
+             sum += nums [ i ] ; 
+             m [ sum ] = i + 1 ; 
+          } 
+         sum = 0 ; 
+          for ( int  i = n - 1 ;  i >= 0 ;  i -- ) { 
+             sum += nums [ i ] ; 
+             m2 [ sum ] = n - i ; 
+          } 
+         m [ 0 ] = 0 ,  m2 [ 0 ] = 0 ; 
+          int  answer = INT_MAX ; 
+          for ( auto  x : m2 ) { 
+              int  temp = target - x . first ; 
+              if ( m . count ( temp )   &&   ( m [ temp ] - 1 < n - x . second ) ) { 
+                 answer = min ( answer ,  x . second + m [ temp ] ) ; 
+              } 
+          } 
+          return  answer == INT_MAX ? - 1 : answer ; 
+      } 
+ } ;
