@@ -1,0 +1,17 @@
+// Resubmitting coz of it being the daily leetcode challenge 
+ class   Solution   { 
+ public : 
+      bool   find132pattern ( vector < int > &  nums )   { 
+          int  s3 = INT_MIN ;   // this is very important 
+         stack < int >  st ; 
+          for ( int  i = nums . size ( ) - 1 ;  i >= 0 ;  i -- ) { 
+              if ( nums [ i ] < s3 )   // this can never execute before the loop had been iterated twice 
+                  return   true ; 
+              while   ( st . empty ( ) == false   &&  nums [ i ] > st . top ( ) ) {   // while is used, so that we can get the maximum possible value for s3 which is less than nums[i] 
+                 s3 = st . top ( ) ;  st . pop ( ) ; 
+              } 
+             st . push ( nums [ i ] ) ; 
+          } 
+          return   false ;   // this means nums[i] was never less than s3 
+      } 
+ } ;
